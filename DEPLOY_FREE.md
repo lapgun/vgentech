@@ -252,22 +252,59 @@ php artisan db:seed --class=TestimonialSeeder
 
 ## 🔧 Troubleshooting
 
+### ⚠️ Lỗi "vendor/autoload.php not found"
+
+**Nguyên nhân:** Composer dependencies chưa được install
+
+**Giải pháp:**
+
+1. **Trong Railway Settings → Deploy**:
+   - Build Command: `composer install --no-dev --optimize-autoloader && npm ci && npm run build`
+   - Start Command: `php artisan config:cache && php artisan migrate --force && php artisan serve --host=0.0.0.0 --port=$PORT`
+
+2. **Hoặc chạy manual trong Terminal**:
+   ```bash
+   composer install --no-dev --optimize-autoloader
+   npm ci
+   npm run build
+   ```
+
+3. **Redeploy**:
+   - Railway: Click "Deploy" để rebuild
+   - Hoặc push commit mới lên GitHub
+
 ### Lỗi 500
 ```bash
 php artisan config:clear
 php artisan cache:clear
 php artisan view:clear
+php artisan key:generate
 ```
 
 ### Assets không load
 ```bash
 npm run build
 php artisan storage:link
+chmod -R 755 storage bootstrap/cache
 ```
 
 ### Database connection failed
-- Check DATABASE_URL format
-- Verify PostgreSQL is attached
+```bash
+# Check environment variables
+php artisan config:clear
+php artisan tinker
+>>> DB::connection()->getPdo();
+```
+
+### Build timeout
+- Tăng timeout trong Railway settings
+- Hoặc remove dev dependencies: `composer install --no-dev`
+
+### Memory limit exceeded
+```bash
+# Add to php.ini or .user.ini
+memory_limit = 512M
+```
 
 ## 💡 Tips
 
