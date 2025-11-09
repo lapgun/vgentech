@@ -51,9 +51,6 @@ RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoload
 # Install Node dependencies and build assets
 RUN npm ci --legacy-peer-deps && npm run build
 
-# Set default port
-ENV PORT=8080
-
 # Expose port
 EXPOSE 8080
 
@@ -62,4 +59,4 @@ CMD php artisan config:cache && \
     php artisan route:cache && \
     php artisan migrate --force && \
     php artisan storage:link || true && \
-    php artisan serve --host=0.0.0.0 --port=${PORT}
+    php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
