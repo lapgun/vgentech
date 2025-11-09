@@ -1,0 +1,12 @@
+.git
+.idea
+.vscode
+node_modules
+vendor
+.env
+.env.backup
+.DS_Store
+Thumbs.db
+*.log
+storage/*.key
+.phpunit.result.cache

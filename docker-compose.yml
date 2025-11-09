@@ -1,0 +1,46 @@
+services:
+  # Laravel Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: vgentech_app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    env_file:
+      - .env
+    ports:
+      - "9000:8000"
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - vgentech_network
+    depends_on:
+      - db
+    command: php artisan serve --host=0.0.0.0 --port=8000
+
+  # PostgreSQL Database
+  db:
+    image: postgres:16-alpine
+    container_name: vgentech_db
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      POSTGRES_DB: ${DB_DATABASE:-vgentech}
+      POSTGRES_USER: ${DB_USERNAME:-postgres}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-123456}
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT_HOST:-5433}:5432"
+    networks:
+      - vgentech_network
+
+networks:
+  vgentech_network:
+    driver: bridge
+
+volumes:
+  dbdata:
+    driver: local
