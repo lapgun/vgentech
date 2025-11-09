@@ -918,8 +918,8 @@ html {
 /* Scroll to Top Button */
 .scroll-to-top {
     position: fixed;
-    bottom: 30px;
-    right: 30px;
+    bottom: 155px; /* Adjusted to avoid floating contact buttons (20 + 60 + 15 + 60 = 155px) */
+    right: 20px;
     width: 50px;
     height: 50px;
     background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
@@ -933,7 +933,7 @@ html {
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
-    z-index: 1000;
+    z-index: 999; /* Lower than floating buttons */
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
@@ -1044,8 +1044,8 @@ html {
     .scroll-to-top {
         width: 40px;
         height: 40px;
-        bottom: 20px;
-        right: 20px;
+        bottom: 130px; /* Adjusted for mobile: 15 + 50 + 15 + 50 = 130px */
+        right: 15px;
     }
 }
 
