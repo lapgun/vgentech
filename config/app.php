@@ -123,4 +123,18 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Contact Information
+    |--------------------------------------------------------------------------
+    |
+    | Contact information for the company/website.
+    |
+    */
+
+    'phone' => env('APP_PHONE', '0123456789'),
+    'zalo' => env('APP_ZALO', '0123456789'),
+    'email' => env('APP_EMAIL', 'info@vgentech.com'),
+    'address' => env('APP_ADDRESS', '123 Đường ABC, Quận XYZ, TP.HCM'),
+
 ];

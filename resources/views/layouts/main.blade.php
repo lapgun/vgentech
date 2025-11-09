@@ -54,6 +54,9 @@
     <!-- Footer -->
     @include('partials.footer')
     
+    <!-- Floating Contact Buttons -->
+    @include('partials.floating-contact')
+    
     <!-- Search Modal -->
     <div class="modal fade" id="searchModal" tabindex="-1" aria-labelledby="searchModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
