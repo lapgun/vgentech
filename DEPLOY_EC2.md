@@ -85,11 +85,23 @@ SESSION_DRIVER=file
 QUEUE_CONNECTION=sync
 ```
 
-## Bước 6: Build và Start Docker Containers
+## Bước 6: Install Dependencies và Start Docker Containers
 
 ```bash
+# IMPORTANT: Install Composer dependencies FIRST!
+docker run --rm -v ~/vgentech:/app composer:latest install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
 # Build and start containers
 docker-compose up -d --build
+
+# Wait for containers to be ready
+sleep 10
+
+# Verify containers are running (not restarting)
+docker-compose ps
+
+# If "app" container is restarting, check logs:
+# docker-compose logs app
 
 # Generate APP_KEY
 docker-compose exec app php artisan key:generate
@@ -251,6 +263,18 @@ docker-compose exec app php artisan config:cache
 ```bash
 docker-compose logs app
 docker-compose logs db
+```
+
+### vendor/autoload.php not found:
+```bash
+# Stop containers
+docker-compose down
+
+# Install dependencies first
+docker run --rm -v ~/vgentech:/app composer:latest install --no-dev --no-interaction
+
+# Start again
+docker-compose up -d --build
 ```
 
 ### Permission denied:
