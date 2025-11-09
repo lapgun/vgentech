@@ -51,12 +51,15 @@ RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoload
 # Install Node dependencies and build assets
 RUN npm ci --legacy-peer-deps && npm run build
 
-# Expose port 8000
-EXPOSE 8000
+# Set default port
+ENV PORT=8080
+
+# Expose port
+EXPOSE 8080
 
 # Start Laravel with proper setup
 CMD php artisan config:cache && \
     php artisan route:cache && \
     php artisan migrate --force && \
     php artisan storage:link || true && \
-    php artisan serve --host=0.0.0.0 --port=$PORT
+    php artisan serve --host=0.0.0.0 --port=${PORT}
