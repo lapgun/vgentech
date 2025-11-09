@@ -55,8 +55,10 @@ RUN npm ci --legacy-peer-deps && npm run build
 EXPOSE 8080
 
 # Start Laravel with proper setup
-CMD php artisan config:cache && \
+CMD echo "Starting Laravel on port ${PORT:-8080}..." && \
+    php artisan config:cache && \
     php artisan route:cache && \
     php artisan migrate --force && \
     php artisan storage:link || true && \
+    echo "Serving on 0.0.0.0:${PORT:-8080}" && \
     php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
