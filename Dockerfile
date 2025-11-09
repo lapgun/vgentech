@@ -44,11 +44,19 @@ RUN groupadd -g 1000 www && \
 # Copy application files
 COPY --chown=www:www . /var/www/html
 
-# Change current user to www
+# Install PHP dependencies as www user
 USER www
+RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+# Install Node dependencies and build assets
+RUN npm ci --legacy-peer-deps && npm run build
 
 # Expose port 8000
 EXPOSE 8000
 
-# Start Laravel development server
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]
+# Start Laravel with proper setup
+CMD php artisan config:cache && \
+    php artisan route:cache && \
+    php artisan migrate --force && \
+    php artisan storage:link || true && \
+    php artisan serve --host=0.0.0.0 --port=$PORT
