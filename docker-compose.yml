@@ -10,14 +10,13 @@ services:
     env_file:
       - .env
     ports:
-      - "9000:8000"
+      - "8000:8000"
     volumes:
       - ./:/var/www/html
     networks:
       - vgentech_network
     depends_on:
       - db
-    command: php artisan serve --host=0.0.0.0 --port=8000
 
   # PostgreSQL Database
   db:

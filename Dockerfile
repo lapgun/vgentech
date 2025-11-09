@@ -41,24 +41,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 RUN groupadd -g 1000 www && \
     useradd -u 1000 -ms /bin/bash -g www www
 
-# Copy application files
-COPY --chown=www:www . /var/www/html
-
-# Install PHP dependencies as www user
+# Change current user to www
 USER www
-RUN composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
 
-# Install Node dependencies and build assets
-RUN npm ci --legacy-peer-deps && npm run build
+# Expose port 8000
+EXPOSE 8000
 
-# Expose port
-EXPOSE 8080
-
-# Start Laravel with proper setup
-CMD echo "Starting Laravel on port ${PORT:-8080}..." && \
-    php artisan config:cache && \
-    php artisan route:cache && \
-    php artisan migrate --force && \
-    php artisan storage:link || true && \
-    echo "Serving on 0.0.0.0:${PORT:-8080}" && \
-    php artisan serve --host=0.0.0.0 --port=${PORT:-8080}
+# Start Laravel development server
+CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=8000"]

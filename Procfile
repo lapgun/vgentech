@@ -1,1 +1,0 @@
-web: test -d vendor || composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader && php artisan config:cache && php artisan route:cache && php artisan migrate --force && php artisan storage:link || true && php artisan serve --host=0.0.0.0 --port=$PORT
