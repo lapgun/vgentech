@@ -4,6 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -12,19 +14,29 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create admin user with ADMIN role
-        User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@vgentech.vn',
-            'role' => User::ROLE_ADMIN,
-        ]);
+        // Ensure default admin account exists without creating duplicates when reseeding
+        User::updateOrCreate(
+            ['email' => 'admin@vgentech.vn'],
+            [
+                'name' => 'Admin User',
+                'role' => User::ROLE_ADMIN,
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'remember_token' => Str::random(10),
+            ]
+        );
 
-        // Create a guest user for testing
-        User::factory()->create([
-            'name' => 'Guest User',
-            'email' => 'guest@vgentech.vn',
-            'role' => User::ROLE_GUEST,
-        ]);
+        // Ensure guest testing account exists without duplicate constraint errors
+        User::updateOrCreate(
+            ['email' => 'guest@vgentech.vn'],
+            [
+                'name' => 'Guest User',
+                'role' => User::ROLE_GUEST,
+                'password' => Hash::make('password'),
+                'email_verified_at' => now(),
+                'remember_token' => Str::random(10),
+            ]
+        );
 
         // Run all seeders in order
         $this->call([
