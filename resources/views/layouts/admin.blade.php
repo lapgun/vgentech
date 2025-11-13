@@ -593,37 +593,6 @@
                                 </div>
                             </div>
                         </li>
-
-                        <li x-data="{ open: @json(request()->routeIs('admin.settings.*') || request()->routeIs('admin.users.*')) }" class="pt-2 mt-2 border-t border-gray-200">
-                            <button @click="open = !open" type="button"
-                                class="flex items-center justify-between w-full px-3 py-2.5 text-sm font-medium rounded-lg transition-all group {{ request()->routeIs('admin.settings.*') || request()->routeIs('admin.users.*') ? 'bg-gray-50 text-gray-900' : 'text-gray-700 hover:bg-gray-50' }}">
-                                <div class="flex items-center space-x-3">
-                                    <i
-                                        class="fas fa-cog w-5 {{ request()->routeIs('admin.settings.*') || request()->routeIs('admin.users.*') ? 'text-gray-900' : 'text-gray-400' }}"></i>
-                                    <span>{{ __('admin.settings') }}</span>
-                                </div>
-                                <i class="fas fa-chevron-down text-xs text-gray-400 transition-transform duration-200"
-                                    :class="open ? 'rotate-180' : ''"></i>
-                            </button>
-                            <ul x-show="open" x-transition:enter="transition ease-out duration-200"
-                                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-                                x-transition:leave="transition ease-in duration-150"
-                                x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
-                                class="mt-1 ml-8 space-y-1" style="display: none;">
-                                <li>
-                                    <a href="{{ route('admin.settings.index') }}"
-                                        class="flex items-center px-3 py-2 text-sm rounded-lg transition-all {{ request()->routeIs('admin.settings.*') ? 'text-blue-600 bg-blue-50 font-medium' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }}">
-                                        {{ __('admin.site_settings') }}
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('admin.users.index') }}"
-                                        class="flex items-center px-3 py-2 text-sm rounded-lg transition-all {{ request()->routeIs('admin.users.*') ? 'text-blue-600 bg-blue-50 font-medium' : 'text-gray-600 hover:text-gray-900 hover:bg-gray-50' }}">
-                                        {{ __('admin.users') }}
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
                     </ul>
                 </nav>
 
