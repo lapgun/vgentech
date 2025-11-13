@@ -50,20 +50,47 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
 // Admin only routes - require ADMIN role
-Route::middleware(['auth', 'verified', 'admin'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [\App\Http\Controllers\Admin\AdminController::class, 'index'])->name('dashboard');
     
     // Profile management for admins
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     
-    // TODO: Add admin routes for managing products, projects, posts
-    // Route::resource('admin/products', ProductController::class);
-    // Route::resource('admin/projects', ProjectController::class);
-    // Route::resource('admin/posts', PostController::class);
+    // Content Management
+    Route::resource('categories', \App\Http\Controllers\Admin\CategoryController::class);
+    Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
+    Route::delete('products/{image}/delete-image', [\App\Http\Controllers\Admin\ProductController::class, 'deleteImage'])->name('products.delete-image');
+    Route::resource('projects', \App\Http\Controllers\Admin\ProjectController::class);
+    Route::delete('projects/{image}/delete-image', [\App\Http\Controllers\Admin\ProjectController::class, 'deleteImage'])->name('projects.delete-image');
+    Route::resource('posts', \App\Http\Controllers\Admin\PostController::class);
+    Route::resource('pages', \App\Http\Controllers\Admin\PageController::class);
+    Route::resource('tags', \App\Http\Controllers\Admin\TagController::class);
+    
+    // Marketing
+    Route::resource('banners', \App\Http\Controllers\Admin\BannerController::class);
+    Route::resource('testimonials', \App\Http\Controllers\Admin\TestimonialController::class);
+    
+    // HR & Inquiries
+    Route::resource('recruitments', \App\Http\Controllers\Admin\RecruitmentController::class);
+    Route::get('contacts', [\App\Http\Controllers\Admin\ContactController::class, 'index'])->name('contacts.index');
+    Route::get('contacts/{contact}', [\App\Http\Controllers\Admin\ContactController::class, 'show'])->name('contacts.show');
+    Route::post('contacts/{contact}/mark-read', [\App\Http\Controllers\Admin\ContactController::class, 'markAsRead'])->name('contacts.mark-read');
+    Route::post('contacts/{contact}/mark-unread', [\App\Http\Controllers\Admin\ContactController::class, 'markAsUnread'])->name('contacts.mark-unread');
+    Route::delete('contacts/{contact}', [\App\Http\Controllers\Admin\ContactController::class, 'destroy'])->name('contacts.destroy');
+    
+    Route::get('product-inquiries', [\App\Http\Controllers\Admin\ProductInquiryController::class, 'index'])->name('product-inquiries.index');
+    Route::get('product-inquiries/{inquiry}', [\App\Http\Controllers\Admin\ProductInquiryController::class, 'show'])->name('product-inquiries.show');
+    Route::post('product-inquiries/{inquiry}/mark-read', [\App\Http\Controllers\Admin\ProductInquiryController::class, 'markAsRead'])->name('product-inquiries.mark-read');
+    Route::post('product-inquiries/{inquiry}/mark-unread', [\App\Http\Controllers\Admin\ProductInquiryController::class, 'markAsUnread'])->name('product-inquiries.mark-unread');
+    Route::delete('product-inquiries/{inquiry}', [\App\Http\Controllers\Admin\ProductInquiryController::class, 'destroy'])->name('product-inquiries.destroy');
+    
+    // Settings
+    Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
+    Route::put('settings', [\App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');
+    Route::resource('users', \App\Http\Controllers\Admin\UserController::class);
 });
 
 require __DIR__.'/auth.php';

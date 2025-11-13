@@ -48,8 +48,8 @@
                             </div>
                         </div>
 
-                        @if($post->featured_image)
-                            <img src="{{ $post->featured_image }}" 
+                        @if($post->featured_image_url)
+                            <img src="{{ $post->featured_image_url }}" 
                                  class="img-fluid rounded mb-4" alt="{{ $post->title }}">
                         @endif
 
@@ -125,7 +125,7 @@
                                 @foreach($relatedPosts as $related)
                                     <div class="col-md-6">
                                         <div class="card h-100">
-                                            <img src="{{ $related->featured_image ?? 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80' }}" 
+                                    <img src="{{ $related->featured_image_url ?? 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80' }}" 
                                                  class="card-img-top" alt="{{ $related->title }}"
                                                  style="height: 150px; object-fit: cover;">
                                             <div class="card-body">
@@ -174,7 +174,7 @@
                             <a href="{{ route('blog.show', $latest->slug) }}" 
                                class="list-group-item list-group-item-action">
                                 <div class="d-flex">
-                                    <img src="{{ $latest->featured_image ?? 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=120&q=80' }}" 
+                             <img src="{{ $latest->featured_image_url ?? 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=120&q=80' }}" 
                                          class="me-2 rounded" alt="{{ $latest->title }}"
                                          style="width: 80px; height: 60px; object-fit: cover;">
                                     <div>

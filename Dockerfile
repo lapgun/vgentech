@@ -41,8 +41,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
 RUN groupadd -g 1000 www && \
     useradd -u 1000 -ms /bin/bash -g www www
 
-# Change current user to www
-USER www
+# Configure git to trust any directory (for Docker environment)
+RUN git config --system --add safe.directory '*'
 
 # Expose port 8000
 EXPOSE 8000

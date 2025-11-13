@@ -105,7 +105,7 @@
                         @foreach($products as $product)
                             <div class="col-md-4">
                                 <div class="card h-100">
-                                    <img src="{{ $product->featured_image ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' }}" 
+                                        <img src="{{ $product->featured_image_url ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' }}" 
                                          class="card-img-top" alt="{{ $product->name }}" 
                                          style="height: 200px; object-fit: cover;">
                                     <div class="card-body">

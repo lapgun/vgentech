@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
@@ -75,5 +76,23 @@ class Product extends Model
     public function scopeFeatured($query)
     {
         return $query->where('is_featured', true);
+    }
+
+    /**
+     * Resolve the public URL for the featured image if available.
+     */
+    public function getFeaturedImageUrlAttribute(): ?string
+    {
+        if (!$this->featured_image) {
+            return null;
+        }
+
+        if (Str::startsWith($this->featured_image, ['http://', 'https://', 'data:'])) {
+            return $this->featured_image;
+        }
+
+        $imagePath = ltrim($this->featured_image, '/');
+
+        return asset('storage/' . $imagePath);
     }
 }

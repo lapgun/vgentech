@@ -46,7 +46,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="card h-100 shadow-sm">
                             <div class="position-relative">
-                                <img src="{{ $project->featured_image ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80' }}" 
+                          <img src="{{ $project->featured_image_url ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80' }}" 
                                      class="card-img-top" alt="{{ $project->name }}"
                                      style="height: 250px; object-fit: cover;">
                                 @if($project->status)

@@ -28,8 +28,8 @@
                         @foreach($results['products'] as $product)
                             <div class="col-md-4 col-lg-3 mb-4">
                                 <div class="card product-card h-100">
-                                    @if($product->featured_image)
-                                        <img src="{{ $product->featured_image }}" class="card-img-top" alt="{{ $product->name }}">
+                                    @if($product->featured_image_url)
+                                        <img src="{{ $product->featured_image_url }}" class="card-img-top" alt="{{ $product->name }}">
                                     @else
                                         <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="{{ $product->name }}">
                                     @endif
@@ -66,8 +66,8 @@
                         @foreach($results['projects'] as $project)
                             <div class="col-md-4 mb-4">
                                 <div class="card project-card h-100">
-                                    @if($project->featured_image)
-                                        <img src="{{ $project->featured_image }}" class="card-img-top" alt="{{ $project->title }}">
+                                    @if($project->featured_image_url)
+                                        <img src="{{ $project->featured_image_url }}" class="card-img-top" alt="{{ $project->title }}">
                                     @else
                                         <img src="https://via.placeholder.com/400x300" class="card-img-top" alt="{{ $project->title }}">
                                     @endif
@@ -108,8 +108,8 @@
                                 <div class="card post-card h-100">
                                     <div class="row g-0">
                                         <div class="col-md-4">
-                                            @if($post->featured_image)
-                                                <img src="{{ $post->featured_image }}" class="img-fluid rounded-start h-100 object-fit-cover" alt="{{ $post->title }}">
+                                            @if($post->featured_image_url)
+                                                <img src="{{ $post->featured_image_url }}" class="img-fluid rounded-start h-100 object-fit-cover" alt="{{ $post->title }}">
                                             @else
                                                 <img src="https://via.placeholder.com/200x200" class="img-fluid rounded-start h-100 object-fit-cover" alt="{{ $post->title }}">
                                             @endif

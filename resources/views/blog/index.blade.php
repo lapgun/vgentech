@@ -27,7 +27,7 @@
                         <div class="card mb-4 shadow-sm">
                             <div class="row g-0">
                                 <div class="col-md-4">
-                                    <img src="{{ $post->featured_image ?? 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80' }}" 
+                             <img src="{{ $post->featured_image_url ?? 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&q=80' }}" 
                                          class="img-fluid rounded-start h-100" alt="{{ $post->title }}"
                                          style="object-fit: cover;">
                                 </div>
@@ -149,7 +149,7 @@
                                 <a href="{{ route('blog.show', $featured->slug) }}" 
                                    class="list-group-item list-group-item-action">
                                     <div class="d-flex">
-                                        <img src="{{ $featured->featured_image ?? 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=120&q=80' }}" 
+                                <img src="{{ $featured->featured_image_url ?? 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=120&q=80' }}" 
                                              class="me-2 rounded" alt="{{ $featured->title }}"
                                              style="width: 80px; height: 60px; object-fit: cover;">
                                         <div>

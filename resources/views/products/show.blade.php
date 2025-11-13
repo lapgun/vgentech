@@ -25,8 +25,8 @@
                 <!-- Product Images -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <img src="{{ $product->featured_image ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1000&q=80' }}" 
-                             class="img-fluid rounded mb-3" alt="{{ $product->name }}">
+                    <img src="{{ $product->featured_image_url ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1000&q=80' }}" 
+                        class="img-fluid rounded mb-3" alt="{{ $product->name }}">
                         
                         @if($product->gallery && is_array($product->gallery))
                             <div class="row g-2">
@@ -93,7 +93,7 @@
                                 @foreach($relatedProducts as $related)
                                     <div class="col-md-4">
                                         <div class="card h-100">
-                                            <img src="{{ $related->featured_image ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' }}" 
+                                    <img src="{{ $related->featured_image_url ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' }}" 
                                                  class="card-img-top" alt="{{ $related->name }}"
                                                  style="height: 150px; object-fit: cover;">
                                             <div class="card-body">

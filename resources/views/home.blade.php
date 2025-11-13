@@ -16,7 +16,7 @@
     <div class="carousel-inner">
         @foreach($banners as $index => $banner)
             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                <img src="{{ $banner->image }}" class="d-block w-100" alt="{{ $banner->title }}" style="height: 500px; object-fit: cover;">
+                <img src="{{ $banner->image_url ?? 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=80' }}" class="d-block w-100" alt="{{ $banner->title }}" style="height: 500px; object-fit: cover;">
                 <div class="carousel-caption">
                     <h2>{{ $banner->title }}</h2>
                     @if($banner->link)
@@ -42,22 +42,22 @@
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
                 <div class="img-hover-zoom">
-                    <img src="https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80" 
+                    <img src="{{ $homeAbout['image_url'] ?? 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80' }}" 
                          alt="VgenTech Generators" 
                          class="img-fluid rounded shadow-lg">
                 </div>
             </div>
             <div class="col-lg-6">
-                <h2 class="text-gradient mb-3">{{ __('common.company_name') }}</h2>
+                <h2 class="text-gradient mb-3">{{ $homeAbout['title'] }}</h2>
                 <div class="mb-4" style="width: 60px; height: 4px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));"></div>
                 
-                <p class="lead mb-3">
-                    Công ty Cổ phần VGENTECH được thành lập bởi khát khao và đam mê cháy bỏng của người sáng lập. Với thời gian dài yêu và gắn bó với nghề Máy phát điện của Người sáng lập, đến nay đã gần 15 năm. Chúng tôi định hướng phát triển doanh nghiệp với kim chỉ nam <strong>"Sự hài lòng của quý Khách hàng là Chìa khóa cho thành công phát triển của Doanh nghiệp"</strong>.
-                </p>
+                @if(!empty($homeAbout['lead']))
+                    <p class="lead mb-3">{!! $homeAbout['lead'] !!}</p>
+                @endif
                 
-                <p class="mb-4">
-                    VGENTECH là nhà nhập khẩu và phân phối, bảo trì, bảo dưỡng, sửa chữa động cơ, đầu phát, tổ máy phát điện của các hãng sản xuất máy phát điện uy tín trên thế giới như CUMMINS, MITSUBISHI, PERKINS, JOHN DEERE, YUCHAI, WEICHAI, VOLVO PENTA, DOOSAN, DEUTZ, DENYO, FPT(IVECO), KOHLER, STAMFORD, LEROY SOMER, MECC ALTE, EVOTEC, TT POWER ...
-                </p>
+                @if(!empty($homeAbout['description']))
+                    <p class="mb-4">{!! $homeAbout['description'] !!}</p>
+                @endif
                 
                 <div class="row g-4 mb-4">
                     <div class="col-6">
@@ -67,7 +67,7 @@
                                 <i class="fas fa-award fa-2x"></i>
                             </div>
                             <div>
-                                <span class="counter" data-target="15">0</span>
+                                <span class="counter" data-target="{{ $homeAbout['years'] }}">{{ $homeAbout['years'] }}</span>
                                 <span class="text-primary fs-4">+</span>
                                 <small class="d-block text-muted">{{ __('common.years_experience') }}</small>
                             </div>
@@ -80,7 +80,7 @@
                                 <i class="fas fa-users fa-2x"></i>
                             </div>
                             <div>
-                                <span class="counter" data-target="500">0</span>
+                                <span class="counter" data-target="{{ $homeAbout['clients'] }}">{{ $homeAbout['clients'] }}</span>
                                 <span class="text-primary fs-4">+</span>
                                 <small class="d-block text-muted">{{ __('common.happy_customers') }}</small>
                             </div>
@@ -105,7 +105,7 @@
             @foreach($featuredProducts as $product)
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <div class="card h-100">
-                        <img src="{{ $product->featured_image ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' }}" 
+                    <img src="{{ $product->featured_image_url ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' }}" 
                              class="card-img-top" alt="{{ $product->name }}" style="height: 200px; object-fit: cover;">
                         <div class="card-body">
                             <span class="badge bg-primary mb-2">{{ $product->category->name }}</span>
@@ -143,7 +143,7 @@
             @foreach($featuredProjects as $project)
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100">
-                        <img src="{{ $project->featured_image ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80' }}" 
+                    <img src="{{ $project->featured_image_url ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80' }}" 
                              class="card-img-top" alt="{{ $project->title }}" style="height: 250px; object-fit: cover;">
                         <div class="card-body">
                             <h5 class="card-title">{{ $project->title }}</h5>
@@ -184,8 +184,8 @@
             @foreach($latestPosts as $post)
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100">
-                        @if($post->featured_image)
-                            <img src="{{ $post->featured_image }}" class="card-img-top" alt="{{ $post->title }}" 
+                        @if($post->featured_image_url)
+                            <img src="{{ $post->featured_image_url }}" class="card-img-top" alt="{{ $post->title }}" 
                                  style="height: 200px; object-fit: cover;">
                         @endif
                         <div class="card-body">
@@ -232,8 +232,8 @@
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
-                                @if($testimonial->avatar)
-                                    <img src="{{ $testimonial->avatar }}" class="rounded-circle me-3" 
+                                @if($testimonial->avatar_url)
+                                    <img src="{{ $testimonial->avatar_url }}" class="rounded-circle me-3" 
                                          width="60" height="60" alt="{{ $testimonial->customer_name }}">
                                 @else
                                     <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" 

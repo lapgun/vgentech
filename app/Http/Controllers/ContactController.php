@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Contact;
 use App\Models\Setting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class ContactController extends Controller
 {
@@ -21,7 +22,16 @@ class ContactController extends Controller
             'facebook' => Setting::get('facebook_url'),
             'youtube' => Setting::get('youtube_url'),
             'linkedin' => Setting::get('linkedin_url'),
+            'map_url' => Setting::get('google_map_embed_url'),
+            'qr_url' => null,
         ];
+
+        $qrPath = Setting::get('contact_qr_image');
+        if (!empty($qrPath)) {
+            $contactInfo['qr_url'] = Str::startsWith($qrPath, ['http://', 'https://', 'data:'])
+                ? $qrPath
+                : asset('storage/' . ltrim($qrPath, '/'));
+        }
 
         return view('contact', compact('contactInfo'));
     }

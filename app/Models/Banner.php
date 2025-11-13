@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Banner extends Model
 {
@@ -46,5 +47,23 @@ class Banner extends Model
     public function scopePosition($query, string $position)
     {
         return $query->where('position', $position);
+    }
+
+    /**
+     * Resolve the public URL for the banner image if available.
+     */
+    public function getImageUrlAttribute(): ?string
+    {
+        if (!$this->image) {
+            return null;
+        }
+
+        if (Str::startsWith($this->image, ['http://', 'https://', 'data:'])) {
+            return $this->image;
+        }
+
+        $imagePath = ltrim($this->image, '/');
+
+        return asset('storage/' . $imagePath);
     }
 }

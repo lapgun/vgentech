@@ -75,8 +75,8 @@
                     <div class="card h-100">
                         <div class="card-body">
                             <div class="d-flex align-items-center mb-3">
-                                @if($testimonial->avatar)
-                                    <img src="{{ $testimonial->avatar }}" class="rounded-circle me-3" 
+                                @if($testimonial->avatar_url)
+                                    <img src="{{ $testimonial->avatar_url }}" class="rounded-circle me-3" 
                                          width="60" height="60" alt="{{ $testimonial->customer_name }}">
                                 @else
                                     <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3" 

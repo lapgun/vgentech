@@ -68,7 +68,7 @@
                 <!-- Project Images -->
                 <div class="card mb-4">
                     <div class="card-body">
-                        <img src="{{ $project->featured_image ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1000&q=80' }}" 
+                    <img src="{{ $project->featured_image_url ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1000&q=80' }}" 
                              class="img-fluid rounded mb-3" alt="{{ $project->title }}">
                         
                         @if($project->gallery && is_array($project->gallery))
@@ -118,7 +118,7 @@
                                 @foreach($relatedProjects as $related)
                                     <div class="col-md-4">
                                         <div class="card h-100">
-                                            <img src="{{ $related->featured_image ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80' }}" 
+                              <img src="{{ $related->featured_image_url ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80' }}" 
                                                  class="card-img-top" alt="{{ $related->title }}"
                                                  style="height: 150px; object-fit: cover;">
                                             <div class="card-body">

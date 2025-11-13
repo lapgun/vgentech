@@ -1,8 +1,17 @@
 <nav class="navbar navbar-expand-lg navbar-light sticky-top">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('home') }}">
-            <i class="fas fa-bolt"></i> VgenTech
-        </a>
+        @php
+            $siteName = $siteSettings['site_name'] ?? 'VgenTech';
+            $hasLogo = !empty($siteSettings['site_logo_url']);
+        @endphp
+        <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}" aria-label="{{ $siteName }}">
+                @if($hasLogo)
+                    <img src="{{ $siteSettings['site_logo_url'] }}" alt="{{ $siteName }}" style="height: 40px; width: auto;">
+                @else
+                    <i class="fas fa-bolt me-2"></i>
+                    <span class="fw-bold">{{ $siteName }}</span>
+                @endif
+            </a>
         
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
@@ -105,14 +114,14 @@
                         </a>
                         <ul class="dropdown-menu">
                             @if(auth()->user()->isAdmin())
-                                <li><a class="dropdown-item" href="{{ route('dashboard') }}">
+                                <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">
                                     <i class="fas fa-tachometer-alt"></i> Dashboard
                                 </a></li>
                                 <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="{{ route('admin.profile.edit') }}">
+                                    <i class="fas fa-user-circle"></i> {{ __('Profile') }}
+                                </a></li>
                             @endif
-                            <li><a class="dropdown-item" href="{{ route('profile.edit') }}">
-                                <i class="fas fa-user-circle"></i> {{ __('Profile') }}
-                            </a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
