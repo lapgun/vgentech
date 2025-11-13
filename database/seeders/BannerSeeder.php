@@ -66,7 +66,13 @@ class BannerSeeder extends Seeder
         ];
 
         foreach ($banners as $banner) {
-            Banner::create($banner);
+            Banner::updateOrCreate(
+                [
+                    'position' => $banner['position'],
+                    'sort_order' => $banner['sort_order'],
+                ],
+                $banner
+            );
         }
     }
 }

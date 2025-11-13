@@ -16,6 +16,13 @@ class ProductSeeder extends Seeder
         $cummins = Category::where('slug', 'may-phat-dien-cummins')->first();
         $doosan = Category::where('slug', 'may-phat-dien-doosan')->first();
 
+        if (! $cummins || ! $doosan) {
+            if ($this->command) {
+                $this->command->warn('Skipping ProductSeeder: required categories are missing.');
+            }
+            return;
+        }
+
         $products = [
             [
                 'category_id' => $cummins->id,
@@ -288,7 +295,10 @@ class ProductSeeder extends Seeder
         ];
 
         foreach ($products as $product) {
-            Product::create($product);
+            Product::updateOrCreate(
+                ['slug' => $product['slug']],
+                $product
+            );
         }
     }
 }

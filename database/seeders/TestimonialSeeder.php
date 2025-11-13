@@ -43,7 +43,13 @@ class TestimonialSeeder extends Seeder
         ];
 
         foreach ($testimonials as $testimonial) {
-            Testimonial::create($testimonial);
+            Testimonial::updateOrCreate(
+                [
+                    'customer_name' => $testimonial['customer_name'],
+                    'customer_company' => $testimonial['customer_company'],
+                ],
+                $testimonial
+            );
         }
     }
 }

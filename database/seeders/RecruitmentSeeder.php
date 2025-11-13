@@ -315,8 +315,12 @@ class RecruitmentSeeder extends Seeder
         ];
 
         foreach ($jobs as $job) {
-            $job['slug'] = Str::slug($job['title']) . '-' . rand(1000, 9999);
-            Recruitment::create($job);
+            $slug = Str::slug($job['title']);
+
+            Recruitment::updateOrCreate(
+                ['slug' => $slug],
+                array_merge($job, ['slug' => $slug])
+            );
         }
     }
 }

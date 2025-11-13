@@ -15,7 +15,15 @@ class PostSeeder extends Seeder
     public function run(): void
     {
         $user = User::first();
+        if (! $user) {
+            if ($this->command) {
+                $this->command->warn('Skipping PostSeeder: no users found.');
+            }
+            return;
+        }
+
         $tags = Tag::all();
+        $defaultTagIds = $tags->pluck('id')->take(min(3, $tags->count()))->all();
         $category = \App\Models\Category::where('type', 'post')->first();
 
         $posts = [
@@ -202,10 +210,13 @@ class PostSeeder extends Seeder
         ];
 
         foreach ($posts as $postData) {
-            $post = Post::create($postData);
-            // Attach random tags
-            if ($tags->count() > 0) {
-                $post->tags()->attach($tags->random(min(3, $tags->count()))->pluck('id'));
+            $post = Post::updateOrCreate(
+                ['slug' => $postData['slug']],
+                $postData
+            );
+
+            if (! empty($defaultTagIds)) {
+                $post->tags()->sync($defaultTagIds);
             }
         }
     }
