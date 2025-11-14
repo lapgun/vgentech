@@ -83,6 +83,7 @@ return [
     'follow_us' => 'Theo dõi chúng tôi',
     'all_rights_reserved' => 'Bản quyền thuộc về',
     'location_map' => 'Bản đồ chỉ dẫn',
+    'power_solution_partner' => 'Đối tác giải pháp điện đáng tin cậy',
     
     // Home Page
     'featured_products' => 'Sản phẩm nổi bật',

@@ -83,6 +83,7 @@ return [
     'follow_us' => 'Follow Us',
     'all_rights_reserved' => 'All rights reserved',
     'location_map' => 'Location Map',
+    'power_solution_partner' => 'Reliable power solutions partner',
     
     // Home Page
     'featured_products' => 'Featured Products',

@@ -7,16 +7,20 @@
                     $siteName = $siteSettings['site_name'] ?? 'VgenTech';
                     $hasLogo = !empty($siteSettings['site_logo_url']);
                 @endphp
-                <div class="mb-3">
-                    @if ($hasLogo)
-                        <img src="{{ $siteSettings['site_logo_url'] }}" alt="{{ $siteName }}"
-                            style="height: 40px; width: auto;">
-                    @else
-                        <div class="d-flex align-items-center">
-                            <i class="fas fa-bolt me-2"></i>
-                            <h5 class="mb-0">{{ $siteName }}</h5>
+                <div class="mb-4">
+                    <div class="d-inline-flex align-items-center gap-3 px-3 py-2 rounded-4 border border-white border-opacity-10"
+                        style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(6px);">
+                        <span
+                            class="d-inline-flex align-items-center justify-content-center rounded-circle bg-warning text-primary"
+                            style="width: 44px; height: 44px;">
+                            <i class="fas fa-bolt"></i>
+                        </span>
+                        <div class="d-flex flex-column">
+                            <span class="text-uppercase fw-semibold text-white">{{ $siteName }}</span>
+                            <span
+                                class="text-white-50 small">{{ $siteSettings['site_tagline'] ?? __('common.power_solution_partner') }}</span>
                         </div>
-                    @endif
+                    </div>
                 </div>
                 <p>{{ $siteSettings['site_description'] ?? 'Chuyên cung cấp máy phát điện Cummins, Doosan, VMAN chính hãng với chất lượng cao và dịch vụ tốt nhất.' }}
                 </p>

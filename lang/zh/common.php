@@ -83,6 +83,7 @@ return [
     'follow_us' => '关注我们',
     'all_rights_reserved' => '版权所有',
     'location_map' => '位置地图',
+    'power_solution_partner' => '值得信赖的电力解决方案合作伙伴',
     
     // Home Page
     'featured_products' => '特色产品',
