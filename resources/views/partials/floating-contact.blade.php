@@ -242,18 +242,22 @@
 
 
     .chatbot-widget {
-        position: fixed;
-        bottom: 20px;
-        right: 92px;
-        width: 360px;
-        max-width: calc(100vw - 40px);
-        z-index: 1100;
-        transition: opacity 0.25s ease, transform 0.25s ease;
-        height: 510px;
-        max-height: 90vh;
-        display: flex;
-        flex-direction: column;
-    }
+            position: fixed;
+            bottom: 20px;
+            right: 92px;
+            width: 360px;
+            max-width: calc(100vw - 40px);
+            z-index: 1100;
+            transition: opacity 0.25s ease, transform 0.25s ease;
+            height: 600px;
+            max-height: 90vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chatbot-widget.chatbot-widget--chatting {
+            height: 510px;
+        }
 
     .chatbot-widget[hidden] {
         opacity: 0;

@@ -102,18 +102,20 @@ const ChatbotWidget = (() => {
         if (!elements.prechat || !elements.conversation) {
             return;
         }
-
         elements.prechat.hidden = false;
         elements.conversation.hidden = true;
+        // Remove chatting class for correct height
+        elements.widget?.classList.remove('chatbot-widget--chatting');
     }
 
     function showConversation() {
         if (!elements.prechat || !elements.conversation) {
             return;
         }
-
         elements.prechat.hidden = true;
         elements.conversation.hidden = false;
+        // Add chatting class for correct height
+        elements.widget?.classList.add('chatbot-widget--chatting');
     }
 
     function loadStoredSession() {
