@@ -22,6 +22,12 @@
 @endphp
 
 <div class="floating-contact-buttons">
+    <!-- Chatbot Button -->
+    <button class="floating-btn chat-btn" id="chatbot-toggle" type="button"
+        title="{{ __('common.chatbot_toggle_tooltip') }}" aria-controls="chatbot-widget" aria-expanded="false">
+        <i class="fas fa-comments"></i>
+    </button>
+
     <!-- Scroll to Top Button -->
     <button class="floating-btn scroll-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
         title="Lên đầu trang">
@@ -47,6 +53,70 @@
     @endif
 </div>
 
+<div class="chatbot-widget" id="chatbot-widget" hidden aria-hidden="true">
+    <div class="chatbot-card">
+        <div class="chatbot-header">
+            <div>
+                <h5>{{ __('common.chatbot_widget_title') }}</h5>
+                <p>{{ __('common.chatbot_greeting') }}</p>
+            </div>
+            <button type="button" class="chatbot-close" id="chatbot-close" aria-label="Close chatbot">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="chatbot-body">
+            <div class="chatbot-prechat" id="chatbot-prechat">
+                <form id="chatbot-intake-form" class="chatbot-form">
+                    <div class="chatbot-field">
+                        <label for="chatbot-name">{{ __('common.chatbot_form_name') }}</label>
+                        <input type="text" id="chatbot-name" name="name" required maxlength="120"
+                            autocomplete="name" />
+                    </div>
+                    <div class="chatbot-field">
+                        <label for="chatbot-email">{{ __('common.chatbot_form_email') }}</label>
+                        <input type="email" id="chatbot-email" name="email" maxlength="160"
+                            autocomplete="email" />
+                    </div>
+                    <div class="chatbot-field">
+                        <label for="chatbot-phone">{{ __('common.chatbot_form_phone') }}</label>
+                        <input type="tel" id="chatbot-phone" name="phone" maxlength="40"
+                            autocomplete="tel" />
+                    </div>
+                    <div class="chatbot-field">
+                        <label for="chatbot-need">{{ __('common.chatbot_form_need') }}</label>
+                        <textarea id="chatbot-need" name="needs" rows="2" maxlength="600"></textarea>
+                    </div>
+                    <p class="chatbot-consent">{{ __('common.chatbot_collect_consent') }}</p>
+                    <div class="chatbot-alert" id="chatbot-intake-alert" hidden></div>
+                    <button type="submit" class="chatbot-primary-btn">
+                        <span>{{ __('common.chatbot_form_submit') }}</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+
+            <div class="chatbot-conversation" id="chatbot-conversation" hidden>
+                <div class="chatbot-messages" id="chatbot-messages"></div>
+                <div class="chatbot-typing" id="chatbot-typing" hidden>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+                <div class="chatbot-alert" id="chatbot-conversation-alert" hidden></div>
+                <form id="chatbot-message-form" class="chatbot-message-form">
+                    <input type="text" id="chatbot-input" name="message" autocomplete="off"
+                        placeholder="{{ __('common.chatbot_input_placeholder') }}" maxlength="1000" required />
+                    <button type="submit" class="chatbot-send-btn" aria-label="{{ __('common.chatbot_send') }}">
+                        <span class="chatbot-send-label">{{ __('common.chatbot_send') }}</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
     .floating-contact-buttons {
         position: fixed;
@@ -62,7 +132,7 @@
         width: 56px;
         height: 56px;
         border: none;
-        border-radius: 50%;
+        border-radius: 999px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -76,15 +146,19 @@
     }
 
     .floating-btn:nth-child(1) {
-        animation-delay: 0.1s;
+        animation-delay: 0.05s;
     }
 
     .floating-btn:nth-child(2) {
-        animation-delay: 0.2s;
+        animation-delay: 0.15s;
     }
 
     .floating-btn:nth-child(3) {
-        animation-delay: 0.3s;
+        animation-delay: 0.25s;
+    }
+
+    .floating-btn:nth-child(4) {
+        animation-delay: 0.35s;
     }
 
     @keyframes slideIn {
@@ -101,6 +175,15 @@
 
     .floating-btn:active {
         transform: translateY(-1px) scale(0.98);
+    }
+
+    .chat-btn {
+        background: linear-gradient(135deg, #ff512f 0%, #dd2476 100%);
+        color: white;
+    }
+
+    .chat-btn i {
+        font-size: 22px;
     }
 
     /* Scroll to Top Button */
@@ -157,6 +240,340 @@
         height: 28px;
     }
 
+
+    .chatbot-widget {
+        position: fixed;
+        bottom: 20px;
+        right: 92px;
+        width: 360px;
+        max-width: calc(100vw - 40px);
+        z-index: 1100;
+        transition: opacity 0.25s ease, transform 0.25s ease;
+        height: 510px;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .chatbot-widget[hidden] {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(16px);
+    }
+
+    .chatbot-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.16);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        flex: 1 1 auto;
+        height: 100%;
+        border: 1px solid rgba(15, 23, 42, 0.05);
+    }
+
+    .chatbot-header {
+        background: linear-gradient(135deg, #2563eb 0%, #172554 100%);
+        color: #fff;
+        padding: 18px 22px;
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: flex-start;
+    }
+
+    .chatbot-header h5 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .chatbot-header p {
+        margin: 6px 0 0;
+        font-size: 0.85rem;
+        opacity: 0.85;
+    }
+
+    .chatbot-close {
+        border: none;
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        border-radius: 999px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background 0.2s ease;
+    }
+
+    .chatbot-close:hover {
+        background: rgba(255, 255, 255, 0.35);
+    }
+
+    .chatbot-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        background: #fff;
+    }
+
+    .chatbot-prechat {
+        padding: 22px;
+        overflow-y: auto;
+    }
+
+    .chatbot-form {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .chatbot-field label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #374151;
+        margin-bottom: 6px;
+    }
+
+    .chatbot-field input,
+    .chatbot-field textarea {
+        width: 100%;
+        border: 1px solid #d1d5db;
+        border-radius: 12px;
+        padding: 10px 12px;
+        font-size: 0.9rem;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .chatbot-field input:focus,
+    .chatbot-field textarea:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        outline: none;
+    }
+
+    .chatbot-consent {
+        font-size: 0.75rem;
+        color: #6b7280;
+        line-height: 1.4;
+    }
+
+    .chatbot-alert {
+        border-radius: 12px;
+        padding: 10px 14px;
+        font-size: 0.8rem;
+        line-height: 1.4;
+        margin: 4px 0 0;
+        display: none;
+    }
+
+    .chatbot-alert.success {
+        background: #dcfce7;
+        color: #166534;
+    }
+
+    .chatbot-alert.error {
+        background: #fee2e2;
+        color: #b91c1c;
+    }
+
+    .chatbot-alert.info {
+        background: #e0f2fe;
+        color: #0369a1;
+    }
+
+    #chatbot-intake-alert.chatbot-alert {
+        margin-top: 0;
+    }
+
+    #chatbot-conversation-alert.chatbot-alert {
+        margin: 0 16px 8px;
+    }
+
+    .chatbot-primary-btn {
+        border: none;
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: #fff;
+        border-radius: 14px;
+        padding: 10px 16px;
+        font-size: 0.95rem;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .chatbot-primary-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+    }
+
+    .chatbot-conversation {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .chatbot-messages {
+        flex: 1 1 auto;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        min-height: 0;
+        max-height: 340px;
+    }
+
+    .chatbot-message {
+        display: flex;
+        flex-direction: column;
+        max-width: 85%;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .chatbot-message-user {
+        align-self: flex-end;
+        text-align: right;
+    }
+
+    .chatbot-message-bot {
+        align-self: flex-start;
+        text-align: left;
+    }
+
+    .chatbot-bubble {
+        padding: 12px 14px;
+        border-radius: 16px;
+        box-shadow: 0 6px 18px rgba(15, 23, 42, 0.08);
+        white-space: pre-line;
+    }
+
+    .chatbot-message-user .chatbot-bubble {
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: #fff;
+        border-bottom-right-radius: 6px;
+    }
+
+    .chatbot-message-bot .chatbot-bubble {
+        background: #f1f5f9;
+        color: #1f2937;
+        border-bottom-left-radius: 6px;
+    }
+
+    .chatbot-meta {
+        margin-top: 6px;
+        font-size: 0.7rem;
+        color: #94a3b8;
+    }
+
+    .chatbot-message-form {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 16px;
+        border-top: 1px solid #e2e8f0;
+        background: #fff;
+    }
+
+    .chatbot-message-form input {
+        flex: 1;
+        border: 1px solid #d1d5db;
+        border-radius: 999px;
+        padding: 10px 16px;
+        font-size: 0.9rem;
+        transition: border 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .chatbot-message-form input:focus {
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.2);
+        outline: none;
+    }
+
+    .chatbot-send-btn {
+        padding: 0 16px;
+        min-width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: none;
+        background: linear-gradient(135deg, #2563eb 0%, #1e3a8a 100%);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .chatbot-send-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 8px 18px rgba(30, 64, 175, 0.3);
+    }
+
+    .chatbot-send-btn .chatbot-send-label {
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-right: 8px;
+    }
+
+    .chatbot-send-btn i {
+        font-size: 0.9rem;
+    }
+
+    .chatbot-typing {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 20px 10px;
+    }
+
+    .chatbot-typing .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #cbd5f5;
+        animation: chatbotTyping 1.2s infinite ease-in-out;
+    }
+
+    .chatbot-typing .dot:nth-child(2) {
+        animation-delay: 0.15s;
+    }
+
+    .chatbot-typing .dot:nth-child(3) {
+        animation-delay: 0.3s;
+    }
+
+    @keyframes chatbotTyping {
+        0%,
+        80%,
+        100% {
+            opacity: 0.2;
+            transform: translateY(0);
+        }
+
+        40% {
+            opacity: 1;
+            transform: translateY(-4px);
+        }
+    }
+
+    .chatbot-empty {
+        text-align: center;
+        color: #94a3b8;
+        font-size: 0.85rem;
+        padding: 40px 20px;
+    }
+
     /* Hide default scroll-to-top button from animations.js */
     .scroll-to-top {
         display: none !important;
@@ -186,5 +603,31 @@
         .zalo-btn i {
             font-size: 22px;
         }
+
+        .chatbot-widget {
+            right: 16px;
+            left: 16px;
+            width: auto;
+            bottom: 90px;
+            height: 90vh;
+            max-height: 98vh;
+        }
+
+        .chatbot-card {
+            height: 100%;
+        }
     }
 </style>
+
+@push('scripts')
+    <script>
+        window.__chatbotTranslations = {
+            nameRequired: @json(__('validation.required', ['attribute' => __('common.chatbot_form_name')])),
+            empty: @json(__('common.chatbot_no_messages')),
+            sessionExpired: @json(__('common.chatbot_session_expired')),
+            genericError: @json(__('common.something_went_wrong')),
+            sendError: @json(__('common.chatbot_error')),
+            loading: @json(__('common.loading')),
+        };
+    </script>
+@endpush

@@ -88,6 +88,7 @@
                     $sidebarUnreadContacts = \App\Models\Contact::where('is_read', false)->count();
                     $sidebarUnreadInquiries = \App\Models\ProductInquiry::where('is_processed', false)->count();
                     $sidebarTotalUnread = $sidebarUnreadContacts + $sidebarUnreadInquiries;
+                    $sidebarOpenChats = \App\Models\ChatSession::where('status', \App\Models\ChatSession::STATUS_OPEN)->count();
                 @endphp
 
                 <nav class="flex-1 px-4 py-6 overflow-y-auto sidebar-scroll">
@@ -225,6 +226,22 @@
                                 @if ($sidebarUnreadContacts > 0)
                                     <span
                                         class="px-2 py-0.5 text-xs font-semibold bg-red-100 text-red-600 rounded-full">{{ $sidebarUnreadContacts }}</span>
+                                @endif
+                            </a>
+                        </li>
+
+                        <!-- Chatbot -->
+                        <li>
+                            <a href="{{ route('admin.chat-sessions.index') }}"
+                                class="flex items-center justify-between px-3 py-2.5 text-sm font-medium rounded-lg transition-all group {{ request()->routeIs('admin.chat-sessions.*') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50' }}">
+                                <div class="flex items-center space-x-3">
+                                    <i
+                                        class="fas fa-comments w-5 {{ request()->routeIs('admin.chat-sessions.*') ? 'text-blue-600' : 'text-gray-400' }}"></i>
+                                    <span>{{ __('admin.chatbot') }}</span>
+                                </div>
+                                @if ($sidebarOpenChats > 0)
+                                    <span
+                                        class="px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-700 rounded-full">{{ $sidebarOpenChats }}</span>
                                 @endif
                             </a>
                         </li>
@@ -488,6 +505,21 @@
                                 @if ($sidebarUnreadContacts > 0)
                                     <span
                                         class="px-2 py-0.5 text-xs font-semibold bg-red-100 text-red-600 rounded-full">{{ $sidebarUnreadContacts }}</span>
+                                @endif
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="{{ route('admin.chat-sessions.index') }}"
+                                class="flex items-center justify-between px-3 py-2.5 text-sm font-medium rounded-lg transition-all group {{ request()->routeIs('admin.chat-sessions.*') ? 'bg-blue-50 text-blue-600' : 'text-gray-700 hover:bg-gray-50' }}">
+                                <div class="flex items-center space-x-3">
+                                    <i
+                                        class="fas fa-comments w-5 {{ request()->routeIs('admin.chat-sessions.*') ? 'text-blue-600' : 'text-gray-400' }}"></i>
+                                    <span>{{ __('admin.chatbot') }}</span>
+                                </div>
+                                @if ($sidebarOpenChats > 0)
+                                    <span
+                                        class="px-2 py-0.5 text-xs font-semibold bg-green-100 text-green-700 rounded-full">{{ $sidebarOpenChats }}</span>
                                 @endif
                             </a>
                         </li>

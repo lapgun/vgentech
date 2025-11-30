@@ -4,8 +4,8 @@
 @section('content')
     <div class="bg-white rounded-lg shadow">
         <div class="px-6 py-4 border-b flex justify-between">
-            <h2 class="text-lg font-semibold">{{ __('All Testimonials') }}</h2><a
-                href="{{ route('admin.testimonials.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg"><i
+            <h2 class="text-lg font-semibold">{{ __('All Testimonials') }}</h2>
+            <a href="{{ route('admin.testimonials.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-lg"><i
                     class="fas fa-plus mr-2"></i>{{ __('Add Testimonial') }}</a>
         </div>
         <table class="min-w-full">
@@ -22,13 +22,12 @@
             <tbody class="divide-y">
                 @forelse($testimonials as $testimonial)
                     <tr>
-                        <td class="px-6 py-4">{{ $testimonial->client_name }}</td>
-                        <td class="px-6 py-4 text-gray-500">{{ $testimonial->client_position ?? '-' }}</td>
-                        <td class="px-6 py-4 text-gray-500">{{ $testimonial->client_company ?? '-' }}</td>
+                        <td class="px-6 py-4">{{ $testimonial->customer_name }}</td>
+                        <td class="px-6 py-4 text-gray-500">{{ $testimonial->customer_position ?? '-' }}</td>
+                        <td class="px-6 py-4 text-gray-500">{{ $testimonial->customer_company ?? '-' }}</td>
                         <td class="px-6 py-4">
                             @if ($testimonial->rating)
-                                @for ($i = 1; $i
-    <= 5; $i++)
+                                @for ($i = 1; $i <= 5; $i++)
                                     <i
                                         class="fas fa-star {{ $i <= $testimonial->rating ? 'text-yellow-400' : 'text-gray-300' }}"></i>
                                 @endfor
@@ -45,10 +44,15 @@
                         <td class="px-6 py-4 text-right"><a href="{{ route('admin.testimonials.edit', $testimonial) }}"
                                 class="text-blue-600 mr-3"><i class="fas fa-edit"></i></a>
                             <form action="{{ route('admin.testimonials.destroy', $testimonial) }}" method="POST"
-                                class="inline" onsubmit="return confirm('Delete?')">@csrf @method('DELETE')<button
-                                    type="submit" class="text-red-600"><i class="fas fa-trash"></i></button></form>
+                                class="inline" onsubmit="return confirm('Delete?')">@csrf @method('DELETE')
+                                <button type="submit" class="text-red-600">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </form>
                         </td>
-                </tr>@empty<tr>
+                    </tr>
+                @empty
+                    <tr>
                         <td colspan="6" class="px-6 py-4 text-center text-gray-500">No testimonials found.</td>
                     </tr>
                 @endforelse

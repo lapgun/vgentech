@@ -26,4 +26,5 @@ return [
     'category_name' => 'Category Name',
     'product_name' => 'Product Name',
     'project_name' => 'Project Name',
+    'chatbot' => 'Chatbot',
 ];

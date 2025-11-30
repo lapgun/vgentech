@@ -26,4 +26,5 @@ return [
     'category_name' => '分类名称',
     'product_name' => '产品名称',
     'project_name' => '项目名称',
+    'chatbot' => '聊天机器人',
 ];

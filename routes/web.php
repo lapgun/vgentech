@@ -8,6 +8,8 @@ use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\RecruitmentController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\ChatbotController;
+use App\Http\Controllers\Admin\ChatSessionController;
 use Illuminate\Support\Facades\Route;
 
 // Language Switcher
@@ -49,6 +51,12 @@ Route::post('/contact', [ContactController::class, 'store'])->name('contact.stor
 // Search
 Route::get('/search', [HomeController::class, 'search'])->name('search');
 
+Route::prefix('chatbot')->name('chatbot.')->group(function () {
+    Route::post('/session', [ChatbotController::class, 'start'])->name('session.start');
+    Route::get('/session/{chatSession}', [ChatbotController::class, 'show'])->name('session.show');
+    Route::post('/session/{chatSession}/messages', [ChatbotController::class, 'message'])->name('session.message');
+});
+
 // Admin only routes - require ADMIN role
 Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.')->group(function () {
     // Dashboard
@@ -86,6 +94,9 @@ Route::middleware(['auth', 'verified', 'admin'])->prefix('admin')->name('admin.'
     Route::post('product-inquiries/{inquiry}/mark-read', [\App\Http\Controllers\Admin\ProductInquiryController::class, 'markAsRead'])->name('product-inquiries.mark-read');
     Route::post('product-inquiries/{inquiry}/mark-unread', [\App\Http\Controllers\Admin\ProductInquiryController::class, 'markAsUnread'])->name('product-inquiries.mark-unread');
     Route::delete('product-inquiries/{inquiry}', [\App\Http\Controllers\Admin\ProductInquiryController::class, 'destroy'])->name('product-inquiries.destroy');
+
+    Route::get('chat-sessions', [ChatSessionController::class, 'index'])->name('chat-sessions.index');
+    Route::get('chat-sessions/{chatSession}', [ChatSessionController::class, 'show'])->name('chat-sessions.show');
     
     // Settings
     Route::get('settings', [\App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');

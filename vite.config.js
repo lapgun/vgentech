@@ -8,7 +8,8 @@ export default defineConfig({
                 'resources/css/app.css',
                 'resources/css/style.css',
                 'resources/js/app.js',
-                'resources/js/animations.js'
+                'resources/js/animations.js',
+                'resources/js/chatbot.js'
             ],
             refresh: [
                 'resources/views/**',

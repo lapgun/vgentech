@@ -136,6 +136,26 @@ docker-compose exec app bash
 docker-compose exec db psql -U postgres -d vgentech
 ```
 
+## 💬 Chatbot AI
+
+### Cấu hình
+1. Cập nhật thông tin API trong `.env`:
+   ```env
+   OPENAI_API_KEY=your_api_key
+   OPENAI_CHAT_MODEL=gpt-4o-mini
+   OPENAI_API_ENDPOINT=https://api.openai.com/v1/chat/completions
+   ```
+2. Chạy migration để tạo bảng lưu phiên chat:
+   ```bash
+   docker-compose exec app php artisan migrate --path=database/migrations/2025_11_30_000800_create_chatbot_tables.php
+   ```
+
+### Sử dụng
+- Widget chat hiển thị ở góc phải website, thu thập thông tin (tên, email, số điện thoại, nhu cầu).
+- Chatbot trả lời bằng tiếng Việt (có thể đa ngôn ngữ tùy người dùng) thông qua OpenAI.
+- Dữ liệu phiên chat lưu vào PostgreSQL trong các bảng `chat_sessions` và `chat_messages`.
+- Trang quản trị: `Admin → Chatbot` (đường dẫn `/admin/chat-sessions`) để xem lịch sử, chi tiết hội thoại.
+
 ### Tinker (REPL)
 ```bash
 # Mở Laravel Tinker

@@ -26,4 +26,5 @@ return [
     'category_name' => 'Tên danh mục',
     'product_name' => 'Tên sản phẩm',
     'project_name' => 'Tên dự án',
+    'chatbot' => 'Chatbot',
 ];
