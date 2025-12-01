@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', $project->name . ' - VgenTech')
+@section('title', $project->title . ' - VgenTech')
 
 @section('content')
 <!-- Page Header -->
@@ -10,7 +10,7 @@
             <ol class="breadcrumb bg-transparent mb-0">
                 <li class="breadcrumb-item"><a href="{{ route('home') }}" class="text-white">{{ __('common.home') }}</a></li>
                 <li class="breadcrumb-item"><a href="{{ route('projects.index') }}" class="text-white">{{ __('common.projects') }}</a></li>
-                <li class="breadcrumb-item active text-white" aria-current="page">{{ $project->name }}</li>
+                <li class="breadcrumb-item active text-white" aria-current="page">{{ $project->title }}</li>
             </ol>
         </nav>
     </div>
@@ -23,13 +23,13 @@
             <div class="col-lg-8">
                 <!-- Project Header -->
                 <div class="mb-4">
-                    <h1 class="mb-3">{{ $project->name }}</h1>
+                    <h1 class="mb-3">{{ $project->title }}</h1>
                     
                     <div class="d-flex flex-wrap gap-3 mb-3">
-                        @if($project->client)
+                        @if($project->client_name)
                             <div>
                                 <i class="fas fa-building text-primary"></i>
-                                <strong>{{ __('common.client') }}:</strong> {{ $project->client }}
+                                <strong>{{ __('common.client') }}:</strong> {{ $project->client_name }}
                             </div>
                         @endif
                         @if($project->location)
@@ -75,7 +75,7 @@
                             <div class="row g-2">
                                 @foreach($project->gallery as $image)
                                     <div class="col-md-4 col-6">
-                                        <img src="{{ $image }}" class="img-fluid rounded" alt="{{ $project->name }}">
+                                        <img src="{{ $image }}" class="img-fluid rounded" alt="{{ $project->title }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -169,7 +169,7 @@
                                target="_blank" class="btn btn-sm btn-primary" title="{{ __('common.share_project') }}">
                                 <i class="fab fa-facebook-f"></i>
                             </a>
-                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('projects.show', $project->slug)) }}&text={{ urlencode($project->name) }}" 
+                            <a href="https://twitter.com/intent/tweet?url={{ urlencode(route('projects.show', $project->slug)) }}&text={{ urlencode($project->title) }}" 
                                target="_blank" class="btn btn-sm btn-info" title="{{ __('common.share_project') }}">
                                 <i class="fab fa-twitter"></i>
                             </a>

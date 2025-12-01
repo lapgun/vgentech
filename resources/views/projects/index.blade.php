@@ -47,7 +47,7 @@
                         <div class="card h-100 shadow-sm">
                             <div class="position-relative">
                           <img src="{{ $project->featured_image_url ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80' }}" 
-                                     class="card-img-top" alt="{{ $project->name }}"
+                                     class="card-img-top" alt="{{ $project->title }}"
                                      style="height: 250px; object-fit: cover;">
                                 @if($project->status)
                                     <span class="position-absolute top-0 end-0 m-2 badge bg-success">
@@ -56,15 +56,15 @@
                                 @endif
                             </div>
                             <div class="card-body">
-                                <h5 class="card-title">{{ $project->name }}</h5>
+                                <h5 class="card-title">{{ $project->title }}</h5>
                                 <p class="card-text text-muted">
                                     {{ Str::limit($project->description, 100) }}
                                 </p>
                                 
                                 <div class="d-flex justify-content-between align-items-center mb-2">
-                                    @if($project->client)
+                                    @if($project->client_name)
                                         <small class="text-muted">
-                                            <i class="fas fa-building"></i> {{ $project->client }}
+                                            <i class="fas fa-building"></i> {{ $project->client_name }}
                                         </small>
                                     @endif
                                     @if($project->completion_date)
