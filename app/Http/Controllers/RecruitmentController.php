@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Recruitment;
+use App\Models\JobApplication;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class RecruitmentController extends Controller
 {
@@ -65,21 +68,42 @@ class RecruitmentController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'required|string|max:20',
-            'cv_file' => 'required|file|mimes:pdf,doc,docx|max:5120', // 5MB max
+            'cv' => 'required|file|mimes:pdf,doc,docx|max:5120', // 5MB max
             'cover_letter' => 'nullable|string|max:2000',
         ]);
 
         // Handle CV file upload
-        if ($request->hasFile('cv_file')) {
-            $cvPath = $request->file('cv_file')->store('cvs', 'public');
-            $validated['cv_file'] = $cvPath;
+        if ($request->hasFile('cv')) {
+            $cvPath = $request->file('cv')->store('cvs', 'public');
+            $validated['cv'] = $cvPath;
         }
 
-        // Store application data (you can create a JobApplication model later)
-        // For now, we'll just send email notification
-        
-        // TODO: Send email to HR
-        // TODO: Store in database if needed
+        // Store application data
+        $application = JobApplication::create([
+            'recruitment_id' => $job->id,
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'cv_file' => $validated['cv'] ?? null,
+            'cover_letter' => $validated['cover_letter'] ?? null,
+        ]);
+
+        // Send email to HR
+        try {
+            Mail::send('emails.hr_application', [
+                'job' => $job,
+                'application' => $application
+            ], function ($message) use ($job, $application) {
+                $message->to(config('mail.hr_address', config('mail.from.address')))
+                    ->subject('New Job Application: ' . $job->title);
+                if ($application->cv_file) {
+                    $message->attach(storage_path('app/public/' . $application->cv_file));
+                }
+            });
+        } catch (\Exception $e) {
+            // Log or handle email error if needed
+            Log::error('Failed to send job application email: ' . $e->getMessage());
+        }
 
         return redirect()
             ->route('recruitment.show', $slug)

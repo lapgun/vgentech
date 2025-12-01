@@ -115,4 +115,7 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    // HR email address for job applications
+    'hr_address' => env('MAIL_HR_ADDRESS', env('MAIL_FROM_ADDRESS', 'hello@example.com')),
+
 ];
