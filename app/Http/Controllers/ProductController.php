@@ -37,13 +37,13 @@ class ProductController extends Controller
         $sortBy = $request->get('sort', 'latest');
         switch ($sortBy) {
             case 'price_asc':
-                $query->orderBy('price', 'asc');
+                $query->orderBy('price', 'desc');
                 break;
             case 'price_desc':
                 $query->orderBy('price', 'desc');
                 break;
             case 'name':
-                $query->orderBy('name', 'asc');
+                $query->orderBy('name', 'desc');
                 break;
             default:
                 $query->orderBy('created_at', 'desc');

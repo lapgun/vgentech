@@ -7,14 +7,14 @@
             <form action="{{ route('admin.projects.update', $project) }}" method="POST" enctype="multipart/form-data">@csrf
                 @method('PUT')
                 <div class="grid grid-cols-2 gap-4">
-            <div class="col-span-2">
-            <label class="block text-gray-700 font-medium mb-2">{{ __('admin.project_name') }} <span
-                class="text-red-500">*</span></label>
-            <input type="text" name="name" value="{{ old('name', $project->name) }}"
-                class="w-full px-4 py-2 border rounded-lg" required>
-            </div>
+                    <div class="col-span-2">
+                        <label class="block text-gray-700 font-medium mb-2">{{ __('admin.project_name') }} <span
+                                class="text-red-500">*</span></label>
+                        <input type="text" name="title" value="{{ old('title', $project->title) }}"
+                            class="w-full px-4 py-2 border rounded-lg" required>
+                    </div>
                     <div><label class="block text-gray-700 font-medium mb-2">{{ __('Client') }}</label><input
-                            type="text" name="client" value="{{ old('client', $project->client) }}"
+                            type="text" name="client_name" value="{{ old('client_name', $project->client_name) }}"
                             class="w-full px-4 py-2 border rounded-lg"></div>
                     <div><label class="block text-gray-700 font-medium mb-2">{{ __('Location') }}</label><input
                             type="text" name="location" value="{{ old('location', $project->location) }}"

@@ -11,7 +11,7 @@ class BannerController extends Controller
 {
     public function index()
     {
-        $banners = Banner::orderBy('sort_order', 'asc')
+        $banners = Banner::orderBy('sort_order', 'desc')
             ->orderBy('created_at', 'desc')
             ->paginate(20);
         

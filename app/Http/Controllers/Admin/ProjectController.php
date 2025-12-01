@@ -17,7 +17,7 @@ class ProjectController extends Controller
         $projects = Project::with(['category', 'images'])
             ->orderBy('created_at', 'desc')
             ->paginate(20);
-        
+
         return view('admin.projects.index', compact('projects'));
     }
 
@@ -30,11 +30,11 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:projects',
             'description' => 'nullable|string',
             'content' => 'nullable|string',
-            'client' => 'nullable|string|max:255',
+            'client_name' => 'nullable|string|max:255',
             'location' => 'nullable|string|max:255',
             'completion_date' => 'nullable|date',
             'category_id' => 'nullable|exists:categories,id',
@@ -47,7 +47,7 @@ class ProjectController extends Controller
         ]);
 
         $incomingSlug = $validated['slug'] ?? null;
-        $normalizedSlug = Str::slug($incomingSlug ?: $validated['name']);
+        $normalizedSlug = Str::slug($incomingSlug ?: $validated['title']);
 
         if (!$normalizedSlug) {
             $normalizedSlug = Str::random(8);
@@ -90,11 +90,11 @@ class ProjectController extends Controller
     public function update(Request $request, Project $project)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'title' => 'required|string|max:255',
             'slug' => 'nullable|string|max:255|unique:projects,slug,' . $project->id,
             'description' => 'nullable|string',
             'content' => 'nullable|string',
-            'client' => 'nullable|string|max:255',
+            'client_name' => 'nullable|string|max:255',
             'location' => 'nullable|string|max:255',
             'completion_date' => 'nullable|date',
             'category_id' => 'nullable|exists:categories,id',
@@ -107,7 +107,7 @@ class ProjectController extends Controller
         ]);
 
         $incomingSlug = $validated['slug'] ?? null;
-        $normalizedSlug = Str::slug($incomingSlug ?: $validated['name']);
+        $normalizedSlug = Str::slug($incomingSlug ?: $validated['title']);
 
         if (!$normalizedSlug) {
             $normalizedSlug = Str::random(8);

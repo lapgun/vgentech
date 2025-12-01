@@ -24,8 +24,8 @@
                     <div><label>{{ __('Salary Range') }}</label><input type="text" name="salary_range"
                             value="{{ old('salary_range', $recruitment->salary_range) }}"
                             class="w-full px-4 py-2 border rounded-lg"></div>
-                    <div><label>{{ __('Employment Type') }}</label><input type="text" name="employment_type"
-                            value="{{ old('employment_type', $recruitment->employment_type) }}"
+                    <div><label>{{ __('Job Type') }}</label><input type="text" name="job_type"
+                            value="{{ old('job_type', $recruitment->job_type) }}"
                             class="w-full px-4 py-2 border rounded-lg"></div>
                     <div><label>{{ __('Application Deadline') }}</label><input type="date" name="deadline"
                             value="{{ old('deadline', $recruitment->deadline ? $recruitment->deadline->format('Y-m-d') : '') }}"

@@ -17,7 +17,7 @@ class PostController extends Controller
         $posts = Post::with('tags')
             ->orderBy('created_at', 'desc')
             ->paginate(20);
-        
+
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -56,7 +56,7 @@ class PostController extends Controller
 
         $validated['is_featured'] = $request->has('is_featured') ? 1 : 0;
         $validated['is_active'] = $request->has('is_active') ? 1 : 0;
-    $validated['author'] = $validated['author'] ?? optional(Auth::user())->name;
+        $validated['author'] = $validated['author'] ?? optional(Auth::user())->name;
 
         // Handle featured image upload
         if ($request->hasFile('featured_image')) {
@@ -144,8 +144,8 @@ class PostController extends Controller
 
         while (
             Post::where('slug', $slug)
-                ->when($ignoreId, fn ($query) => $query->where('id', '!=', $ignoreId))
-                ->exists()
+            ->when($ignoreId, fn($query) => $query->where('id', '!=', $ignoreId))
+            ->exists()
         ) {
             $slug = $baseSlug . '-' . $suffix;
             $suffix++;

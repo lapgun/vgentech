@@ -41,9 +41,9 @@
                                 @endif
                             </td>
                             <td class="px-6 py-4">
-                                <div class="text-sm font-medium text-gray-900">{{ $project->name }}</div>
+                                <div class="text-sm font-medium text-gray-900">{{ $project->title }}</div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-gray-500">{{ $project->client ?? '-' }}</td>
+                            <td class="px-6 py-4 whitespace-nowrap text-gray-500">{{ $project->client_name ?? '-' }}</td>
                             <td class="px-6 py-4 whitespace-nowrap text-gray-500">{{ $project->category->name ?? '-' }}
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">

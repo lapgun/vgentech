@@ -13,7 +13,7 @@
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Title') }}</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Location') }}</th>
-                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Employment Type') }}
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Job Type') }}
                     </th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Deadline') }}</th>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">{{ __('Status') }}</th>
@@ -25,7 +25,7 @@
                     <tr>
                         <td class="px-6 py-4">{{ $recruitment->title }}</td>
                         <td class="px-6 py-4 text-gray-500">{{ $recruitment->location ?? '-' }}</td>
-                        <td class="px-6 py-4 text-gray-500">{{ $recruitment->employment_type ?? '-' }}</td>
+                        <td class="px-6 py-4 text-gray-500">{{ $recruitment->job_type ?? '-' }}</td>
                         <td class="px-6 py-4 text-gray-500">
                             {{ $recruitment->deadline ? $recruitment->deadline->format('Y-m-d') : '-' }}</td>
                         <td class="px-6 py-4">

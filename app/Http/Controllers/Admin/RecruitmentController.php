@@ -39,6 +39,14 @@ class RecruitmentController extends Controller
         if (empty($validated['slug'])) {
             $validated['slug'] = Str::slug($validated['title']);
         }
+        $incomingSlug = $validated['slug'] ?? null;
+        $normalizedSlug = Str::slug($incomingSlug ?: $validated['title']);
+
+        if (!$normalizedSlug) {
+            $normalizedSlug = Str::random(8);
+        }
+
+        $validated['slug'] = $this->ensureUniqueSlug($normalizedSlug);
 
         $validated['is_active'] = $request->has('is_active') ? 1 : 0;
 
@@ -57,7 +65,7 @@ class RecruitmentController extends Controller
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'required|string|max:255|unique:recruitments,slug,' . $recruitment->id,
+            'slug' => 'nullable|string|max:255|unique:recruitments,slug,' . $recruitment->id,
             'description' => 'nullable|string',
             'requirements' => 'nullable|string',
             'benefits' => 'nullable|string',
@@ -68,6 +76,15 @@ class RecruitmentController extends Controller
             'contact_email' => 'nullable|email|max:255',
             'is_active' => 'boolean',
         ]);
+
+        $incomingSlug = $validated['slug'] ?? null;
+        $normalizedSlug = Str::slug($incomingSlug ?: $validated['title']);
+
+        if (!$normalizedSlug) {
+            $normalizedSlug = Str::random(8);
+        }
+
+        $validated['slug'] = $this->ensureUniqueSlug($normalizedSlug, $recruitment->id);
 
         $validated['is_active'] = $request->has('is_active') ? 1 : 0;
 
@@ -83,5 +100,25 @@ class RecruitmentController extends Controller
 
         return redirect()->route('admin.recruitments.index')
             ->with('success', __('Recruitment deleted successfully.'));
+    }
+
+    /**
+     * Build a unique slug for posts, optionally ignoring a specific record.
+     */
+    protected function ensureUniqueSlug(string $baseSlug, ?int $ignoreId = null): string
+    {
+        $slug = $baseSlug;
+        $suffix = 1;
+
+        while (
+            Recruitment::where('slug', $slug)
+            ->when($ignoreId, fn($query) => $query->where('id', '!=', $ignoreId))
+            ->exists()
+        ) {
+            $slug = $baseSlug . '-' . $suffix;
+            $suffix++;
+        }
+
+        return $slug;
     }
 }

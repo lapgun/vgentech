@@ -11,7 +11,7 @@ class TestimonialController extends Controller
 {
     public function index()
     {
-        $testimonials = Testimonial::orderBy('sort_order', 'asc')
+        $testimonials = Testimonial::orderBy('sort_order', 'desc')
             ->orderBy('created_at', 'desc')
             ->paginate(20);
         
@@ -26,9 +26,9 @@ class TestimonialController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'client_name' => 'required|string|max:255',
-            'client_position' => 'nullable|string|max:255',
-            'client_company' => 'nullable|string|max:255',
+            'customer_name' => 'required|string|max:255',
+            'customer_position' => 'nullable|string|max:255',
+            'customer_company' => 'nullable|string|max:255',
             'content' => 'required|string',
             'rating' => 'nullable|integer|min:1|max:5',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',
@@ -61,9 +61,9 @@ class TestimonialController extends Controller
     public function update(Request $request, Testimonial $testimonial)
     {
         $validated = $request->validate([
-            'client_name' => 'required|string|max:255',
-            'client_position' => 'nullable|string|max:255',
-            'client_company' => 'nullable|string|max:255',
+            'customer_name' => 'required|string|max:255',
+            'customer_position' => 'nullable|string|max:255',
+            'customer_company' => 'nullable|string|max:255',
             'content' => 'required|string',
             'rating' => 'nullable|integer|min:1|max:5',
             'avatar' => 'nullable|image|mimes:jpeg,png,jpg,gif,webp|max:1024',

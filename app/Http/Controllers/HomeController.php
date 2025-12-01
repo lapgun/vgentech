@@ -108,7 +108,7 @@ class HomeController extends Controller
                     $q->where('name', 'LIKE', "%{$query}%")
                       ->orWhere('description', 'LIKE', "%{$query}%");
                 })
-                ->orderBy('sort_order', 'asc')
+                ->orderBy('sort_order', 'desc')
                 ->take(10)
                 ->get();
         }
