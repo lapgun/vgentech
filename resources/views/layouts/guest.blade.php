@@ -31,8 +31,15 @@
 <body class="font-sans text-gray-900 antialiased">
     <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
         <div>
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+            <a class="d-flex align-items-center justify-content-center mb-4" href="/" style="text-decoration: none;">
+                @php
+                    $hasLogo = !empty($siteSettings['site_logo_url']);
+                @endphp
+                @if ($hasLogo)
+                    <img src="{{ $siteSettings['site_logo_url'] }}" alt="{{ $siteName }}" style="height: 60px; width: auto;">
+                @else
+                    <span class="fw-bold text-primary" style="font-size: 1.5rem;">{{ $siteName }}</span>
+                @endif
             </a>
         </div>
 

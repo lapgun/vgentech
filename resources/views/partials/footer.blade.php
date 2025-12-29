@@ -125,7 +125,7 @@
         @if ($mapUrl || $qrUrl)
             <div class="row mt-4">
                 <div class="col-12">
-                    <div class="card shadow-sm">
+                    <div class="card shadow-lg border-0">
                         <div
                             class="card-header card-header-gradient text-white d-flex justify-content-between align-items-center">
                             <h5 class="mb-0"><i class="fas fa-map-marked-alt"></i> {{ __('common.location_map') }}
@@ -134,23 +134,26 @@
                                 <span class="text-sm text-white-50">{{ __('common.scan_qr_to_connect') }}</span>
                             @endif
                         </div>
-                        <div class="card-body">
-                            <div class="row g-4 align-items-stretch">
+                        <div class="card-body p-0">
+                            <div class="row g-0 align-items-stretch">
                                 @if ($qrUrl)
-                                    <div class="col-md-4 col-lg-3 d-flex">
+                                    <div class="col-md-4 col-lg-3 d-flex border-end">
                                         <div
-                                            class="bg-white rounded w-100 h-100 p-3 d-flex flex-column justify-content-center align-items-center shadow-sm">
-                                            <img src="{{ $qrUrl }}" alt="{{ __('common.contact_qr_code') }}"
-                                                class="img-fluid" style="max-height: 260px;">
-                                            <p class="mt-3 mb-0 text-muted small text-center">
-                                                {{ __('common.scan_qr_to_connect') }}</p>
+                                            class="bg-light w-100 h-100 p-4 d-flex flex-column justify-content-center align-items-center">
+                                            <div class="qr-code-wrapper p-3 bg-white rounded-4 shadow-sm mb-3">
+                                                <img src="{{ $qrUrl }}" alt="{{ __('common.contact_qr_code') }}"
+                                                    class="img-fluid" style="max-height: 200px;">
+                                            </div>
+                                            <p class="mt-2 mb-0 text-muted small text-center fw-semibold">
+                                                <i class="fas fa-qrcode text-primary"></i> {{ __('common.scan_qr_to_connect') }}
+                                            </p>
                                         </div>
                                     </div>
                                 @endif
                                 <div class="{{ $qrUrl ? 'col-md-8 col-lg-9' : 'col-12' }} d-flex">
-                                    <div class="w-100 h-100">
-                                        <iframe src="{{ $mapUrl }}" class="w-100 h-100 rounded-3 border-0"
-                                            style="min-height: 260px;" allowfullscreen="" loading="lazy"
+                                    <div class="w-100 h-100 map-container">
+                                        <iframe src="{{ $mapUrl }}" class="w-100 h-100 border-0"
+                                            style="min-height: 350px;" allowfullscreen="" loading="lazy"
                                             referrerpolicy="no-referrer-when-downgrade"></iframe>
                                     </div>
                                 </div>
@@ -160,6 +163,36 @@
                 </div>
             </div>
         @endif
+        
+        <!-- Certifications & Awards -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="certifications-section text-center py-4">
+                    <h6 class="text-white-50 mb-3 text-uppercase"><i class="fas fa-certificate"></i> {{ __('common.certifications') }}</h6>
+                    <div class="d-flex justify-content-center align-items-center flex-wrap gap-4">
+                        <div class="certification-badge">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/ISO_9001_logo.svg/200px-ISO_9001_logo.svg.png" 
+                                 alt="ISO 9001" style="height: 60px; filter: brightness(0) invert(1) opacity(0.7);">
+                        </div>
+                        <div class="certification-badge">
+                            <span class="badge bg-warning text-dark fs-6 py-2 px-3">
+                                <i class="fas fa-award"></i> {{ __('common.authorized_dealer') }}
+                            </span>
+                        </div>
+                        <div class="certification-badge">
+                            <span class="badge bg-light text-dark fs-6 py-2 px-3">
+                                <i class="fas fa-shield-alt"></i> {{ __('common.warranty_guaranteed') }}
+                            </span>
+                        </div>
+                        <div class="certification-badge">
+                            <span class="badge bg-primary fs-6 py-2 px-3">
+                                <i class="fas fa-handshake"></i> {{ __('common.trusted_partner') }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <hr class="my-4" style="border-color: rgba(255,255,255,0.1)">
 

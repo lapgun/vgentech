@@ -300,5 +300,20 @@
     "Your quote request has been sent successfully. We will contact you as soon as possible.": "您的报价请求已成功发送。我们会尽快与您联系。",
     "Zalo": "Zalo",
     "common.contact_qr_code": "联系二维码",
-    "common.scan_qr_to_connect": "扫描二维码以连接"
+    "common.scan_qr_to_connect": "扫描二维码连接",
+    "common.trusted_by_500_companies": "500+企业信赖",
+    "common.hero_slogan": "可靠的备用电源解决方案",
+    "common.get_quote_now": "立即获取报价",
+    "common.view_products": "查看产品",
+    "common.best_seller": "畅销",
+    "common.new": "新品",
+    "common.contact_for_price": "联系获取最优价格",
+    "common.best_price_guarantee": "最佳价格保证",
+    "common.featured_products_subtitle": "客户信赖的高质量发电机系列",
+    "common.need_support": "需要支持？",
+    "common.browse_catalog": "浏览目录",
+    "common.certifications": "认证与奖项",
+    "common.authorized_dealer": "授权经销商",
+    "common.warranty_guaranteed": "保修保证",
+    "common.trusted_partner": "可信赖的合作伙伴"
 }

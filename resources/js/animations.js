@@ -1,5 +1,56 @@
 // Scroll to Top Button
 document.addEventListener('DOMContentLoaded', function() {
+    // ========================================
+    // PAGE LOADER
+    // ========================================
+    window.addEventListener('load', () => {
+        const loader = document.querySelector('.page-loader');
+        if (loader) {
+            setTimeout(() => {
+                loader.classList.add('hide');
+                setTimeout(() => {
+                    loader.remove();
+                }, 300);
+            }, 500);
+        }
+    });
+
+    // ========================================
+    // COUNTER ANIMATION
+    // ========================================
+    const counters = document.querySelectorAll('.counter');
+    const speed = 200; // Animation speed
+
+    const animateCounter = (counter) => {
+        const target = +counter.getAttribute('data-target');
+        const increment = target / speed;
+        let count = 0;
+
+        const updateCount = () => {
+            count += increment;
+            if (count < target) {
+                counter.innerText = Math.ceil(count);
+                setTimeout(updateCount, 10);
+            } else {
+                counter.innerText = target;
+            }
+        };
+
+        updateCount();
+    };
+
+    // Intersection Observer for counter animation
+    const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting && !entry.target.classList.contains('animated')) {
+                entry.target.classList.add('animated');
+                animateCounter(entry.target);
+            }
+        });
+    }, { threshold: 0.5 });
+
+    counters.forEach(counter => counterObserver.observe(counter));
+
     // Create scroll to top button if it doesn't exist
     if (!document.querySelector('.scroll-to-top')) {
         const scrollBtn = document.createElement('button');
@@ -139,34 +190,6 @@ document.addEventListener('DOMContentLoaded', function() {
             const speed = 0.5;
             el.style.transform = `translateY(${scrolled * speed}px)`;
         });
-    });
-
-    // Animated counter for statistics
-    const counters = document.querySelectorAll('.counter');
-    counters.forEach(counter => {
-        const target = +counter.getAttribute('data-target');
-        const increment = target / 200;
-
-        const updateCounter = () => {
-            const current = +counter.innerText;
-            if (current < target) {
-                counter.innerText = Math.ceil(current + increment);
-                setTimeout(updateCounter, 10);
-            } else {
-                counter.innerText = target;
-            }
-        };
-
-        const counterObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    updateCounter();
-                    counterObserver.unobserve(entry.target);
-                }
-            });
-        });
-
-        counterObserver.observe(counter);
     });
 
     // Smooth scroll for anchor links

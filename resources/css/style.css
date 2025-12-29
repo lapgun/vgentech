@@ -1280,3 +1280,708 @@ footer a:hover {
     border-color: var(--secondary-color);
 }
 
+/* ========================================
+   HERO SECTION ENHANCEMENTS
+   ======================================== */
+
+/* Hero Badge */
+.hero-badge {
+    display: inline-block;
+    padding: 10px 20px;
+    background: rgba(255, 184, 28, 0.9);
+    color: #000;
+    font-weight: 600;
+    border-radius: 30px;
+    font-size: 0.9rem;
+    animation: pulse 2s infinite;
+    box-shadow: 0 4px 15px rgba(255, 184, 28, 0.4);
+}
+
+/* CTA Buttons Enhancements */
+.cta-primary {
+    position: relative;
+    overflow: hidden;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    animation: pulse 2s infinite;
+}
+
+.cta-primary::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.cta-primary:hover::before {
+    width: 400px;
+    height: 400px;
+}
+
+.cta-primary:hover {
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 184, 28, 0.6) !important;
+}
+
+.cta-secondary {
+    border: 2px solid white !important;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cta-secondary:hover {
+    background: white !important;
+    color: var(--primary-color) !important;
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.4);
+}
+
+/* Carousel Enhancements */
+.carousel-item {
+    height: 650px;
+}
+
+.carousel-item img {
+    height: 650px;
+}
+
+.carousel-caption {
+    text-align: left;
+    left: 10%;
+    right: auto;
+    bottom: 100px;
+    max-width: 650px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-left: 5px solid var(--secondary-color);
+}
+
+/* ========================================
+   PRODUCT CARDS ENHANCEMENTS
+   ======================================== */
+
+.product-card {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid #e0e0e0;
+}
+
+.product-card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 20px 40px rgba(0, 102, 204, 0.15);
+    border-color: var(--secondary-color);
+}
+
+.product-image-wrapper {
+    overflow: hidden;
+    position: relative;
+}
+
+.product-badge {
+    position: absolute;
+    top: 10px;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 20px;
+    z-index: 10;
+    animation: slideInRight 0.5s ease-out;
+}
+
+.badge-featured {
+    left: 10px;
+    background: linear-gradient(135deg, #FFB81C, #FDB913);
+    color: #000;
+    box-shadow: 0 3px 10px rgba(255, 184, 28, 0.5);
+}
+
+.badge-new {
+    right: 10px;
+    background: linear-gradient(135deg, #28a745, #20c997);
+    color: white;
+    box-shadow: 0 3px 10px rgba(40, 167, 69, 0.5);
+}
+
+.badge-brand {
+    left: 10px;
+    top: 45px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    backdrop-filter: blur(10px);
+}
+
+.product-price {
+    border-top: 1px solid #e0e0e0;
+    padding-top: 10px;
+}
+
+.btn-product-detail {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-product-detail:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 102, 204, 0.4);
+}
+
+/* ========================================
+   PARTNERS LOGO SLIDER
+   ======================================== */
+
+.partners-slider {
+    overflow: hidden;
+    padding: 20px 0;
+    position: relative;
+}
+
+.partners-track {
+    display: flex;
+    animation: scroll 30s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+.partner-logo {
+    flex: 0 0 200px;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.partner-logo img {
+    max-width: 150px;
+    max-height: 63px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    transition: all 0.3s ease;
+}
+
+.partner-logo:hover img {
+    transform: scale(1.1);
+}
+
+/* ========================================
+   STATS CARDS & COUNTER ANIMATIONS
+   ======================================== */
+
+.stats-card {
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.stats-card:hover {
+    background: white !important;
+    border-color: var(--secondary-color);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 102, 204, 0.15);
+}
+
+.bg-gradient-primary {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)) !important;
+}
+
+/* Counter Animation via JavaScript */
+.counter {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+.stats-card:hover .counter {
+    color: var(--secondary-color);
+    transform: scale(1.15);
+}
+
+/* ========================================
+   FLOATING BADGE ON IMAGES
+   ======================================== */
+
+.floating-badge {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 184, 28, 0.95);
+    color: #000;
+    padding: 10px 15px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 5px 20px rgba(255, 184, 28, 0.5);
+    animation: float 3s ease-in-out infinite;
+    z-index: 10;
+}
+
+.floating-badge i {
+    margin-right: 5px;
+}
+
+/* ========================================
+   STICKY HEADER ENHANCEMENTS
+   ======================================== */
+
+.navbar.sticky-top {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+body.scrolled .navbar {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================
+   WHITESPACE & SPACING IMPROVEMENTS
+   ======================================== */
+
+section {
+    padding: 80px 0;
+}
+
+section.py-5 {
+    padding: 80px 0 !important;
+}
+
+@media (max-width: 768px) {
+    section {
+        padding: 50px 0;
+    }
+}
+
+/* ========================================
+   LOADING STATES & SKELETON SCREENS
+   ======================================== */
+
+.skeleton {
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.skeleton-text {
+    height: 16px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+}
+
+.skeleton-title {
+    height: 24px;
+    width: 60%;
+    margin-bottom: 15px;
+    border-radius: 4px;
+}
+
+.skeleton-image {
+    height: 200px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+/* ========================================
+   ENHANCED HOVER EFFECTS
+   ======================================== */
+
+.img-fluid {
+    transition: all 0.4s ease;
+}
+
+.img-hover-zoom:hover .img-fluid {
+    transform: scale(1.08);
+}
+
+/* ========================================
+   RESPONSIVE ENHANCEMENTS
+   ======================================== */
+
+@media (max-width: 992px) {
+    .carousel-caption {
+        left: 5%;
+        max-width: 90%;
+        padding: 30px;
+    }
+    
+    .hero-badge {
+        font-size: 0.8rem;
+        padding: 8px 15px;
+    }
+    
+    .carousel-caption h1 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .carousel-item,
+    .carousel-item img {
+        height: 450px;
+    }
+    
+    .carousel-caption {
+        bottom: 50px;
+        padding: 20px;
+    }
+    
+    .carousel-caption h1 {
+        font-size: 1.5rem;
+    }
+    
+    .cta-primary,
+    .cta-secondary {
+        font-size: 0.875rem;
+        padding: 10px 20px;
+    }
+    
+    .partners-slider {
+        padding: 10px 0;
+    }
+    
+    .partner-logo {
+        flex: 0 0 150px;
+    }
+}
+
+/* ========================================
+   MEGA MENU ENHANCEMENTS
+   ======================================== */
+
+.mega-menu-dropdown .mega-menu {
+    min-width: 650px;
+    max-width: 750px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.15);
+    padding: 0;
+    margin-top: 15px;
+}
+
+.mega-menu-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid var(--secondary-color);
+}
+
+.mega-menu-item-link {
+    display: block;
+    padding: 10px 8px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+}
+
+.mega-menu-item-link:hover {
+    background: linear-gradient(135deg, rgba(0, 102, 204, 0.08), rgba(255, 184, 28, 0.08));
+    transform: translateX(3px);
+}
+
+.mega-menu-item-link .mega-menu-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+}
+
+.mega-menu-item-link .fw-semibold {
+    font-size: 0.95rem;
+    line-height: 1.3;
+}
+
+.mega-menu-item-link small {
+    font-size: 0.8rem;
+}
+
+.mega-menu-footer {
+    background: rgba(0, 102, 204, 0.03);
+    border-radius: 0 0 15px 15px;
+    padding: 15px 20px;
+}
+
+/* Mega Menu Responsive */
+@media (max-width: 992px) {
+    .mega-menu-dropdown .mega-menu {
+        min-width: auto;
+        width: 100%;
+    }
+}
+
+/* ========================================
+   FLOATING CONTACT BUTTONS ENHANCEMENTS
+   ======================================== */
+
+.floating-contact-buttons {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 1000;
+}
+
+.floating-btn {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.3rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+    animation: fadeInUp 0.5s ease-out;
+}
+
+.floating-btn:hover {
+    transform: translateY(-5px) scale(1.1);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+.chat-btn {
+    background: linear-gradient(135deg, #0066cc, var(--primary-color));
+}
+
+.chat-btn:hover {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+}
+
+.scroll-top-btn {
+    background: linear-gradient(135deg, var(--secondary-color), #FDB913);
+}
+
+.scroll-top-btn:hover {
+    background: linear-gradient(135deg, #FDB913, var(--secondary-color));
+}
+
+.phone-btn {
+    background: linear-gradient(135deg, #25D366, #128C7E);
+}
+
+.phone-btn:hover {
+    background: linear-gradient(135deg, #128C7E, #25D366);
+    color: white;
+}
+
+.zalo-btn {
+    background: linear-gradient(135deg, #0068FF, #0095FF);
+}
+
+.zalo-btn:hover {
+    background: linear-gradient(135deg, #0095FF, #0068FF);
+    color: white;
+}
+
+.zalo-btn svg {
+    width: 28px;
+    height: 28px;
+}
+
+/* Pulse animation for floating buttons */
+@keyframes floatingPulse {
+    0%, 100% {
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 30px rgba(255, 184, 28, 0.6);
+    }
+}
+
+.floating-btn {
+    animation: floatingPulse 2s infinite;
+}
+
+/* ========================================
+   CERTIFICATIONS SECTION
+   ======================================== */
+
+.certifications-section {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+}
+
+.certification-badge {
+    transition: all 0.3s ease;
+}
+
+.certification-badge:hover {
+    transform: translateY(-5px) scale(1.1);
+}
+
+.certification-badge img {
+    transition: all 0.3s ease;
+}
+
+.certification-badge:hover img {
+    filter: brightness(0) invert(1) opacity(1) !important;
+}
+
+/* ========================================
+   COUNTER ANIMATION SCRIPT SUPPORT
+   ======================================== */
+
+/* Counter will be animated via JavaScript */
+.counter {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ========================================
+   SCROLL BEHAVIOR ENHANCEMENTS
+   ======================================== */
+
+/* Add smooth scroll padding for sticky header */
+html {
+    scroll-padding-top: 80px;
+}
+
+/* Body scroll spy for navigation */
+body.scrolled .navbar {
+    padding: 0.5rem 0;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* ========================================
+   BLOG IMPROVEMENTS
+   ======================================== */
+
+/* Table of Contents */
+.blog-toc {
+    position: sticky;
+    top: 100px;
+    background: #f8f9fa;
+    border-left: 4px solid var(--secondary-color);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.blog-toc h4 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.blog-toc ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.blog-toc li {
+    margin-bottom: 10px;
+}
+
+.blog-toc a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    display: block;
+    padding: 5px 10px;
+    border-radius: 5px;
+}
+
+.blog-toc a:hover,
+.blog-toc a.active {
+    background: white;
+    color: var(--primary-color);
+    padding-left: 15px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Blog Typography */
+.blog-content {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.blog-content h2,
+.blog-content h3 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.blog-content p {
+    margin-bottom: 1.5rem;
+}
+
+.blog-content img {
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+}
+
+/* Related Products Section */
+.related-products {
+    background: #f8f9fa;
+    padding: 40px 0;
+    border-radius: 15px;
+    margin-top: 50px;
+}
+
+.related-products h3 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: var(--primary-color);
+}
+
+/* ========================================
+   QR CODE WRAPPER
+   ======================================== */
+
+.qr-code-wrapper {
+    border: 2px solid var(--secondary-color);
+    transition: all 0.3s ease;
+}
+
+.qr-code-wrapper:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 20px rgba(255, 184, 28, 0.3);
+}

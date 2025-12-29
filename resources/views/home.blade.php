@@ -16,12 +16,23 @@
     <div class="carousel-inner">
         @foreach($banners as $index => $banner)
             <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
-                <img src="{{ $banner->image_url ?? 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1200&q=80' }}" class="d-block w-100" alt="{{ $banner->title }}" style="height: 500px; object-fit: cover;">
-                <div class="carousel-caption">
-                    <h2>{{ $banner->title }}</h2>
-                    @if($banner->link)
-                        <a href="{{ $banner->link }}" class="btn btn-primary btn-lg">{{ __('common.view_details') }}</a>
-                    @endif
+                <img src="{{ $banner->image_url ?? 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=1920&q=80' }}" class="d-block w-100" alt="{{ $banner->title }}" style="height: 600px; object-fit: cover; filter: brightness(0.9);">
+                <div class="carousel-caption d-flex flex-column justify-content-center align-items-start">
+                    <div class="hero-badge mb-3">
+                        <i class="fas fa-certificate"></i> {{ __('common.trusted_by_500_companies') }}
+                    </div>
+                    <h1 class="display-4 fw-bold mb-3">{{ $banner->title }}</h1>
+                    <p class="lead mb-4" style="max-width: 600px; text-shadow: 2px 2px 8px rgba(0,0,0,0.7);">{{ $banner->subtitle ?? __('common.hero_slogan') }}</p>
+                    <div class="d-flex gap-3">
+                        @if($banner->link)
+                            <a href="{{ $banner->link }}" class="btn btn-warning btn-lg shadow-lg cta-primary">
+                                <i class="fas fa-calculator me-2"></i>{{ __('common.get_quote_now') }}
+                            </a>
+                            <a href="{{ route('products.index') }}" class="btn btn-outline-light btn-lg cta-secondary">
+                                <i class="fas fa-box me-2"></i>{{ __('common.view_products') }}
+                            </a>
+                        @endif
+                    </div>
                 </div>
             </div>
         @endforeach
@@ -36,59 +47,83 @@
 </div>
 @endif
 
+<!-- Logo Partners Slider -->
+<section class="py-4 bg-light border-top border-bottom">
+    <div class="container">
+        <div class="partners-slider">
+            <div class="partners-track">
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-1.jpg') }}" alt="Partner 1"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-2.jpg') }}" alt="Partner 2"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-3.jpg') }}" alt="Partner 3"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-4.jpg') }}" alt="Partner 4"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-5.jpg') }}" alt="Partner 5"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-1.jpg') }}" alt="Partner 1"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-2.jpg') }}" alt="Partner 2"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-3.jpg') }}" alt="Partner 3"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- About Company Section -->
-<section class="py-5 bg-light">
+<section class="py-5 bg-white">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
-                <div class="img-hover-zoom">
+                <div class="img-hover-zoom position-relative">
                     <img src="{{ $homeAbout['image_url'] ?? 'https://images.unsplash.com/photo-1581092160562-40aa08e78837?w=800&q=80' }}" 
                          alt="VgenTech Generators" 
-                         class="img-fluid rounded shadow-lg">
+                         class="img-fluid rounded-4 shadow-lg">
+                    <div class="floating-badge">
+                        <i class="fas fa-certificate text-warning"></i>
+                        <span>ISO 9001:2015</span>
+                    </div>
                 </div>
             </div>
             <div class="col-lg-6">
-                <h2 class="text-gradient mb-3">{{ $homeAbout['title'] }}</h2>
-                <div class="mb-4" style="width: 60px; height: 4px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));"></div>
+                <h2 class="text-gradient mb-3 display-5 fw-bold">{{ $homeAbout['title'] }}</h2>
+                <div class="mb-4" style="width: 80px; height: 4px; background: linear-gradient(135deg, var(--primary-color), var(--secondary-color)); border-radius: 2px;"></div>
                 
                 @if(!empty($homeAbout['lead']))
-                    <p class="lead mb-3">{!! $homeAbout['lead'] !!}</p>
+                    <p class="lead mb-3 text-muted">{!! $homeAbout['lead'] !!}</p>
                 @endif
                 
                 @if(!empty($homeAbout['description']))
-                    <p class="mb-4">{!! $homeAbout['description'] !!}</p>
+                    <p class="mb-4 fs-6 lh-lg">{!! $homeAbout['description'] !!}</p>
                 @endif
                 
                 <div class="row g-4 mb-4">
                     <div class="col-6">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3 pulse" 
-                                 style="width: 60px; height: 60px;">
-                                <i class="fas fa-award fa-2x"></i>
-                            </div>
-                            <div>
-                                <span class="counter" data-target="{{ $homeAbout['years'] }}">{{ $homeAbout['years'] }}</span>
-                                <span class="text-primary fs-4">+</span>
-                                <small class="d-block text-muted">{{ __('common.years_experience') }}</small>
+                        <div class="stats-card p-3 bg-light rounded-4">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-gradient-primary text-white d-flex align-items-center justify-content-center me-3 pulse" 
+                                     style="width: 60px; height: 60px;">
+                                    <i class="fas fa-award fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h3 class="mb-0"><span class="counter" data-target="{{ $homeAbout['years'] }}">0</span><span class="text-primary">+</span></h3>
+                                    <small class="d-block text-muted fw-semibold">{{ __('common.years_experience') }}</small>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-6">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-circle bg-primary text-white d-flex align-items-center justify-content-center me-3 pulse" 
-                                 style="width: 60px; height: 60px;">
-                                <i class="fas fa-users fa-2x"></i>
-                            </div>
-                            <div>
-                                <span class="counter" data-target="{{ $homeAbout['clients'] }}">{{ $homeAbout['clients'] }}</span>
-                                <span class="text-primary fs-4">+</span>
-                                <small class="d-block text-muted">{{ __('common.happy_customers') }}</small>
+                        <div class="stats-card p-3 bg-light rounded-4">
+                            <div class="d-flex align-items-center">
+                                <div class="rounded-circle bg-gradient-primary text-white d-flex align-items-center justify-content-center me-3 pulse" 
+                                     style="width: 60px; height: 60px;">
+                                    <i class="fas fa-users fa-2x"></i>
+                                </div>
+                                <div>
+                                    <h3 class="mb-0"><span class="counter" data-target="{{ $homeAbout['clients'] }}">0</span><span class="text-primary">+</span></h3>
+                                    <small class="d-block text-muted fw-semibold">{{ __('common.happy_customers') }}</small>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <a href="{{ route('about') }}" class="btn btn-primary btn-lg">
+                <a href="{{ route('about') }}" class="btn btn-primary btn-lg shadow">
                     <i class="fas fa-info-circle"></i> {{ __('common.learn_more') }}
                 </a>
             </div>
@@ -97,27 +132,42 @@
 </section>
 
 <!-- Featured Products -->
-<section class="py-5">
+<section class="py-5 bg-white">
     <div class="container">
-        <h2 class="section-title">{{ __('common.featured_products') }}</h2>
+    <h2 class="section-title">{{ __('common.featured_products') }}</h2>
         
         <div class="row g-4">
             @foreach($featuredProducts as $product)
                 <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="card h-100">
-                    <img src="{{ $product->featured_image_url ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' }}" 
-                             class="card-img-top" alt="{{ $product->name }}" style="height: 200px; object-fit: cover;">
+                    <div class="card product-card h-100 border-0 shadow-sm">
+                        <div class="product-image-wrapper position-relative">
+                            <img src="{{ $product->featured_image_url ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' }}" 
+                                 class="card-img-top" alt="{{ $product->name }}" style="height: 220px; object-fit: cover;">
+                            @if($product->is_featured)
+                                <span class="product-badge badge-featured"><i class="fas fa-star"></i> {{ __('common.best_seller') }}</span>
+                            @endif
+                            @if($product->is_new)
+                                <span class="product-badge badge-new"><i class="fas fa-sparkles"></i> {{ __('common.new') }}</span>
+                            @endif
+                            @if($product->brand)
+                                <span class="product-badge badge-brand">{{ $product->brand }}</span>
+                            @endif
+                        </div>
                         <div class="card-body">
                             <span class="badge bg-primary mb-2">{{ $product->category->name }}</span>
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <p class="card-text text-muted small">{{ Str::limit($product->short_description ?? $product->description, 80) }}</p>
-                            @if($product->price)
-                                <p class="text-danger fw-bold">{{ number_format($product->price) }} VNĐ</p>
-                            @endif
+                            <div class="product-price mt-3">
+                                @if($product->price && $product->price < 50000000)
+                                    <p class="text-danger fw-bold fs-5 mb-0">{{ number_format($product->price) }} VNĐ</p>
+                                @else
+                                    <p class="text-danger fw-bold mb-0"><i class="fas fa-phone-alt text-danger"></i> Giá: Liên hệ</p>
+                                @endif
+                            </div>
                         </div>
-                        <div class="card-footer bg-white">
-                            <a href="{{ route('products.show', $product->slug) }}" class="btn btn-primary btn-sm w-100">
-                                <i class="fas fa-eye"></i> {{ __('common.view_details') }}
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="{{ route('products.show', $product->slug) }}" class="btn btn-primary btn-sm w-100 btn-product-detail">
+                                <i class="fas fa-info-circle"></i> {{ __('common.view_details') }}
                             </a>
                         </div>
                     </div>

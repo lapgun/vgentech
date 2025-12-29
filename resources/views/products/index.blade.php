@@ -114,11 +114,7 @@
                                         <p class="card-text text-muted small">
                                             {{ Str::limit($product->short_description ?? $product->description, 80) }}
                                         </p>
-                                        @if($product->price)
-                                            <p class="text-danger fw-bold fs-5">{{ number_format($product->price) }} VNĐ</p>
-                                        @else
-                                            <p class="text-muted">{{ __('common.contact_for_price') }}</p>
-                                        @endif
+                                        <p class="text-danger fw-bold"><i class="fas fa-phone-alt text-danger"></i> Giá: Liên hệ</p>
                                         <p class="text-muted small">
                                             <i class="fas fa-eye"></i> {{ $product->view_count }} {{ __('common.view_count') }}
                                         </p>

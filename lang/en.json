@@ -300,5 +300,20 @@
     "Your quote request has been sent successfully. We will contact you as soon as possible.": "Your quote request has been sent successfully. We will contact you as soon as possible.",
     "Zalo": "Zalo",
     "common.contact_qr_code": "Contact QR Code",
-    "common.scan_qr_to_connect": "Scan the QR code to connect"
+    "common.scan_qr_to_connect": "Scan QR to connect",
+    "common.trusted_by_500_companies": "Trusted by 500+ companies",
+    "common.hero_slogan": "Reliable backup power solutions for your business",
+    "common.get_quote_now": "Get Quote Now",
+    "common.view_products": "View Products",
+    "common.best_seller": "Best Seller",
+    "common.new": "New",
+    "common.contact_for_price": "Contact for best price",
+    "common.best_price_guarantee": "Best price guaranteed",
+    "common.featured_products_subtitle": "High-quality generator lines trusted by customers",
+    "common.need_support": "Need Support?",
+    "common.browse_catalog": "Browse Catalog",
+    "common.certifications": "Certifications & Awards",
+    "common.authorized_dealer": "Authorized Dealer",
+    "common.warranty_guaranteed": "Warranty Guaranteed",
+    "common.trusted_partner": "Trusted Partner"
 }

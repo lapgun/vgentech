@@ -46,11 +46,7 @@
                         <span class="badge bg-primary mb-2">{{ $product->category->name }}</span>
                         <h1 class="mb-3">{{ $product->name }}</h1>
                         
-                        @if($product->price)
-                            <h3 class="text-danger mb-3">{{ number_format($product->price) }} VNĐ</h3>
-                        @else
-                            <h4 class="text-muted mb-3">{{ __('common.contact_for_price') }}</h4>
-                        @endif
+                        <h4 class="text-danger mb-3 fw-bold"><i class="fas fa-phone-alt text-danger"></i> Giá: Liên hệ</h4>
 
                         <p class="lead">{{ $product->short_description }}</p>
 
@@ -98,11 +94,7 @@
                                                  style="height: 150px; object-fit: cover;">
                                             <div class="card-body">
                                                 <h6 class="card-title">{{ $related->name }}</h6>
-                                                @if($related->price)
-                                                    <p class="text-danger fw-bold">{{ number_format($related->price) }} VNĐ</p>
-                                                @else
-                                                    <p class="text-muted">{{ __('common.contact') }}</p>
-                                                @endif
+                                                <p class="text-danger fw-bold"><i class="fas fa-phone-alt"></i> Giá: Liên hệ</p>
                                                 <a href="{{ route('products.show', $related->slug) }}" 
                                                    class="btn btn-primary btn-sm w-100">
                                                     {{ __('common.view_details') }}
