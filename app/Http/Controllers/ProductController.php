@@ -14,7 +14,7 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Product::with('category')
+        $query = Product::with('category:id,name,slug')
             ->active();
 
         // Filter by category
@@ -51,11 +51,12 @@ class ProductController extends Controller
 
         $products = $query->paginate(12);
 
-        // Get categories for filter
+        // Get categories for filter - with limit to prevent memory issues
         $categories = Category::with('children')
             ->root()
             ->active()
             ->orderBy('sort_order')
+            ->limit(50)
             ->get();
 
         return view('products.index', compact('products', 'categories'));

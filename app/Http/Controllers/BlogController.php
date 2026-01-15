@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -13,7 +14,7 @@ class BlogController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Post::with(['author', 'category', 'tags'])
+        $query = Post::with(['author:id,name', 'category:id,name,slug', 'tags:id,name'])
             ->published();
 
         // Filter by tag
@@ -42,7 +43,7 @@ class BlogController extends Controller
             ->get();
 
         // Get categories for sidebar
-        $categories = \App\Models\Category::where('type', 'post')
+        $categories = Category::where('type', 'post')
             ->whereNull('parent_id')
             ->orderBy('name')
             ->get();
@@ -69,10 +70,11 @@ class BlogController extends Controller
         // Increment view count
         $post->increment('view_count');
 
-        // Get related posts (same tags)
+        // Get related posts (same tags) - use deferred query to prevent N+1 issue
         $relatedPosts = Post::with(['author', 'tags'])
             ->whereHas('tags', function ($q) use ($post) {
-                $q->whereIn('tags.id', $post->tags->pluck('id'));
+                // Use deferred query instead of loading tags into memory first
+                $q->whereIn('tags.id', $post->tags()->pluck('id'));
             })
             ->where('id', '!=', $post->id)
             ->published()

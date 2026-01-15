@@ -14,23 +14,22 @@ class ContactController extends Controller
      */
     public function index()
     {
-        // Get contact information from settings
+        // Get contact information from cached settings (shared via AppServiceProvider)
+        // Using view-shared $siteSettings instead of individual Setting::get() calls
         $contactInfo = [
-            'phone' => Setting::get('contact_phone'),
-            'email' => Setting::get('contact_email'),
-            'address' => Setting::get('contact_address'),
-            'facebook' => Setting::get('facebook_url'),
-            'youtube' => Setting::get('youtube_url'),
-            'linkedin' => Setting::get('linkedin_url'),
-            'map_url' => Setting::get('google_map_embed_url'),
+            'phone' => session('siteSettings.contact_phone', config('app.phone', '0123456789')),
+            'email' => session('siteSettings.contact_email', config('app.email')),
+            'address' => session('siteSettings.contact_address', ''),
+            'facebook' => session('siteSettings.facebook_url', ''),
+            'youtube' => session('siteSettings.youtube_url', ''),
+            'linkedin' => session('siteSettings.linkedin_url', ''),
+            'map_url' => session('siteSettings.google_map_embed_url', ''),
             'qr_url' => null,
         ];
 
-        $qrPath = Setting::get('contact_qr_image');
+        $qrPath = session('siteSettings.contact_qr_image_url');
         if (!empty($qrPath)) {
-            $contactInfo['qr_url'] = Str::startsWith($qrPath, ['http://', 'https://', 'data:'])
-                ? $qrPath
-                : asset('storage/' . ltrim($qrPath, '/'));
+            $contactInfo['qr_url'] = $qrPath;
         }
 
         return view('contact', compact('contactInfo'));

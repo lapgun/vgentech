@@ -26,13 +26,13 @@
                 <div class="card mb-4">
                     <div class="card-body">
                     <img src="{{ $product->featured_image_url ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=1000&q=80' }}" 
-                        class="img-fluid rounded mb-3" alt="{{ $product->name }}">
+                        class="img-fluid rounded mb-3" alt="{{ $product->name }}" loading="eager">
                         
                         @if($product->gallery && is_array($product->gallery))
                             <div class="row g-2">
                                 @foreach($product->gallery as $image)
                                     <div class="col-3">
-                                        <img src="{{ $image }}" class="img-fluid rounded" alt="{{ $product->name }}">
+                                        <img src="{{ $image }}" class="img-fluid rounded" alt="{{ $product->name }}" loading="lazy">
                                     </div>
                                 @endforeach
                             </div>

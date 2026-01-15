@@ -10,44 +10,55 @@ use App\Models\Post;
 use App\Models\Setting;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Str;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        // Get active banners for homepage slider
-        $banners = Banner::active()
-            ->position('home_slider')
-            ->orderBy('sort_order')
-            ->get();
+        // Cache homepage queries for 1 hour to improve performance
+        $cacheKey = 'homepage_data';
+        $cacheTTL = 3600; // 1 hour
 
-        // Get featured products
-        $featuredProducts = Product::with('category')
-            ->active()
-            ->featured()
-            ->orderBy('sort_order')
-            ->take(12)
-            ->get();
+        $homepageData = Cache::remember($cacheKey, $cacheTTL, function () {
+            return [
+                'banners' => Banner::active()
+                    ->position('home_slider')
+                    ->orderBy('sort_order')
+                    ->get(),
 
-        // Get featured projects
-        $featuredProjects = Project::active()
-            ->featured()
-            ->orderBy('project_date', 'desc')
-            ->take(9)
-            ->get();
+                'featuredProducts' => Product::with('category:id,name,slug')
+                    ->active()
+                    ->featured()
+                    ->orderBy('sort_order')
+                    ->take(12)
+                    ->get(),
 
-        // Get latest blog posts
-        $latestPosts = Post::with(['author', 'tags'])
-            ->published()
-            ->orderBy('published_at', 'desc')
-            ->take(6)
-            ->get();
+                'featuredProjects' => Project::active()
+                    ->featured()
+                    ->orderBy('project_date', 'desc')
+                    ->take(9)
+                    ->get(),
 
-        // Get testimonials
-        $testimonials = Testimonial::active()
-            ->orderBy('sort_order')
-            ->get();
+                'latestPosts' => Post::with(['author:id,name', 'tags:id,name'])
+                    ->published()
+                    ->orderBy('published_at', 'desc')
+                    ->take(6)
+                    ->get(),
+
+                'testimonials' => Testimonial::active()
+                    ->active()
+                    ->orderBy('sort_order')
+                    ->get(),
+            ];
+        });
+
+        $banners = $homepageData['banners'];
+        $featuredProducts = $homepageData['featuredProducts'];
+        $featuredProjects = $homepageData['featuredProjects'];
+        $latestPosts = $homepageData['latestPosts'];
+        $testimonials = $homepageData['testimonials'];
 
         $homeAboutImage = Setting::get('home_about_image');
 
@@ -67,11 +78,12 @@ class HomeController extends Controller
                 : asset('storage/' . $imagePath);
         }
 
-        // Get main categories for menu
+        // Get main categories for menu (limit to prevent memory issues with large category trees)
         $categories = Category::with('children')
             ->root()
             ->active()
             ->orderBy('sort_order')
+            ->limit(50)
             ->get();
 
         return view('home', compact(

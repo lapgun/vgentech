@@ -52,14 +52,14 @@
     <div class="container">
         <div class="partners-slider">
             <div class="partners-track">
-                <div class="partner-logo"><img src="{{ asset('images/partners/logo-1.jpg') }}" alt="Partner 1"></div>
-                <div class="partner-logo"><img src="{{ asset('images/partners/logo-2.jpg') }}" alt="Partner 2"></div>
-                <div class="partner-logo"><img src="{{ asset('images/partners/logo-3.jpg') }}" alt="Partner 3"></div>
-                <div class="partner-logo"><img src="{{ asset('images/partners/logo-4.jpg') }}" alt="Partner 4"></div>
-                <div class="partner-logo"><img src="{{ asset('images/partners/logo-5.jpg') }}" alt="Partner 5"></div>
-                <div class="partner-logo"><img src="{{ asset('images/partners/logo-1.jpg') }}" alt="Partner 1"></div>
-                <div class="partner-logo"><img src="{{ asset('images/partners/logo-2.jpg') }}" alt="Partner 2"></div>
-                <div class="partner-logo"><img src="{{ asset('images/partners/logo-3.jpg') }}" alt="Partner 3"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-1.jpg') }}" alt="Partner 1" loading="lazy"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-2.jpg') }}" alt="Partner 2" loading="lazy"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-3.jpg') }}" alt="Partner 3" loading="lazy"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-4.jpg') }}" alt="Partner 4" loading="lazy"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-5.jpg') }}" alt="Partner 5" loading="lazy"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-1.jpg') }}" alt="Partner 1" loading="lazy"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-2.jpg') }}" alt="Partner 2" loading="lazy"></div>
+                <div class="partner-logo"><img src="{{ asset('images/partners/logo-3.jpg') }}" alt="Partner 3" loading="lazy"></div>
             </div>
         </div>
     </div>
@@ -142,7 +142,7 @@
                     <div class="card product-card h-100 border-0 shadow-sm">
                         <div class="product-image-wrapper position-relative">
                             <img src="{{ $product->featured_image_url ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' }}" 
-                                 class="card-img-top" alt="{{ $product->name }}" style="height: 220px; object-fit: cover;">
+                                 class="card-img-top" alt="{{ $product->name }}" style="height: 220px; object-fit: cover;" loading="lazy">
                             @if($product->is_featured)
                                 <span class="product-badge badge-featured"><i class="fas fa-star"></i> {{ __('common.best_seller') }}</span>
                             @endif
@@ -194,7 +194,7 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100">
                     <img src="{{ $project->featured_image_url ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80' }}" 
-                             class="card-img-top" alt="{{ $project->title }}" style="height: 250px; object-fit: cover;">
+                             class="card-img-top" alt="{{ $project->title }}" style="height: 250px; object-fit: cover;" loading="lazy">
                         <div class="card-body">
                             <h5 class="card-title">{{ $project->title }}</h5>
                             <p class="card-text">
@@ -236,7 +236,7 @@
                     <div class="card h-100">
                         @if($post->featured_image_url)
                             <img src="{{ $post->featured_image_url }}" class="card-img-top" alt="{{ $post->title }}" 
-                                 style="height: 200px; object-fit: cover;">
+                                 style="height: 200px; object-fit: cover;" loading="lazy">
                         @endif
                         <div class="card-body">
                             <div class="mb-2">
