@@ -315,5 +315,10 @@
     "common.certifications": "Certifications & Awards",
     "common.authorized_dealer": "Authorized Dealer",
     "common.warranty_guaranteed": "Warranty Guaranteed",
-    "common.trusted_partner": "Trusted Partner"
+    "common.trusted_partner": "Trusted partner",
+    "common.company_name_full": "VgenTech Solutions Joint Stock Company",
+    "common.company_name_english": "VgenTech Solutions Joint Stock Company",
+    "common.safe_power_title": "Safe generator and electricity use",
+    "common.safe_power_body": "Do not run generators in enclosed spaces; keep away from rain; never backfeed outlets; store and refuel safely; choose authentic devices with clear origin.",
+    "common.updated_latest": "Latest update"
 }

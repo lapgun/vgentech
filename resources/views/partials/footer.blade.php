@@ -1,215 +1,127 @@
-<footer class="footer">
-    <div class="container">
-        <div class="row">
-            <!-- Company Info -->
-            <div class="col-md-4 mb-4">
-                @php
-                    $siteName = $siteSettings['site_name'] ?? 'VgenTech';
-                    $hasLogo = !empty($siteSettings['site_logo_url']);
-                @endphp
-                <div class="mb-4">
-                    <div class="d-inline-flex align-items-center gap-3 px-3 py-2 rounded-4 border border-white border-opacity-10"
-                        style="background: rgba(255, 255, 255, 0.08); backdrop-filter: blur(6px);">
-                        <span
-                            class="d-inline-flex align-items-center justify-content-center rounded-circle bg-warning text-primary"
-                            style="width: 44px; height: 44px;">
-                            <i class="fas fa-bolt"></i>
-                        </span>
-                        <div class="d-flex flex-column">
-                            <span class="text-uppercase fw-semibold text-white">{{ $siteName }}</span>
-                            <span
-                                class="text-white-50 small">{{ $siteSettings['site_tagline'] ?? __('common.power_solution_partner') }}</span>
-                        </div>
+<footer class="footer footer-hero">
+    @php
+        $siteName = $siteSettings['site_name'] ?? 'VgenTech';
+        $hasLogo = !empty($siteSettings['site_logo_url']);
+        $tagline = $siteSettings['site_tagline'] ?? __('common.power_solution_partner');
+        $businessPhone = $siteSettings['business_phone'] ?? ($siteSettings['contact_phone'] ?? '0983 933 933');
+        $technicalPhone = $siteSettings['technical_phone'] ?? ($siteSettings['contact_phone'] ?? '090 467 4466');
+        $officePhone = $siteSettings['office_phone'] ?? ($siteSettings['contact_phone'] ?? '024 7300 1080');
+        $officeHours = $siteSettings['office_hours'] ?? '08h - 17h';
+        $vpAddress = $siteSettings['contact_address'] ?? __('common.contact_info');
+        $factoryAddress = $siteSettings['factory_address'] ?? ($siteSettings['contact_address'] ?? null);
+        $hotline = $siteSettings['contact_phone'] ?? null;
+        $email = $siteSettings['contact_email'] ?? null;
+        $facebook = $siteSettings['facebook_url'] ?? null;
+        $youtube = $siteSettings['youtube_url'] ?? null;
+        $linkedin = $siteSettings['linkedin_url'] ?? null;
+        $instagram = $siteSettings['instagram_url'] ?? null;
+        $mapUrl =
+            $siteSettings['google_map_embed_url'] ??
+            'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.863592744892!2d105.78466897503201!3d21.037499780613943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab4cd0c66f05%3A0x85b098f35422f299!2zVmnhu4d0IFnDqm4sIE5nxakgSGnhu4dwLCBUaGFuaCBUcsOsLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1699520000000!5m2!1svi!2s';
+        $qrUrl = $siteSettings['contact_qr_image_url'] ?? null;
+    @endphp
+
+    <div class="footer-overlay"></div>
+
+    <div class="container position-relative">
+        <div class="footer-topline">
+            <div class="footer-chip">
+                <div class="footer-chip-icon bg-warning text-primary"><i class="fas fa-headset"></i></div>
+                <div class="footer-chip-body">
+                    <div class="footer-chip-title">Kinh doanh (24/7)</div>
+                    <a href="tel:{{ $businessPhone }}" class="footer-chip-value">{{ $businessPhone }}</a>
+                </div>
+            </div>
+            <div class="footer-chip">
+                <div class="footer-chip-icon bg-info text-white"><i class="fas fa-tools"></i></div>
+                <div class="footer-chip-body">
+                    <div class="footer-chip-title">Kỹ thuật (24/7)</div>
+                    <a href="tel:{{ $technicalPhone }}" class="footer-chip-value">{{ $technicalPhone }}</a>
+                </div>
+            </div>
+            <div class="footer-chip">
+                <div class="footer-chip-icon bg-primary text-white"><i class="fas fa-building"></i></div>
+                <div class="footer-chip-body">
+                    <div class="footer-chip-title">Office ({{ $officeHours }})</div>
+                    <a href="tel:{{ $officePhone }}" class="footer-chip-value">{{ $officePhone }}</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 align-items-start footer-main">
+            <div class="col-lg-4">
+                <div class="font-semibold text-xl my-3">Công ty cổ phần giải pháp VgenTech</div>
+                <div class="footer-contact-grid single-column">
+                    <div class="footer-contact-item">
+                        <span class="label">VPGD:</span>
+                        <span class="value">{{ $vpAddress }}</span>
                     </div>
-                </div>
-                <p>{{ $siteSettings['site_description'] ?? 'Chuyên cung cấp máy phát điện Cummins, Doosan, VMAN chính hãng với chất lượng cao và dịch vụ tốt nhất.' }}
-                </p>
-                <div class="social-links mt-3">
-                    @php
-                        $facebook = $siteSettings['facebook_url'] ?? null;
-                        $youtube = $siteSettings['youtube_url'] ?? null;
-                        $linkedin = $siteSettings['linkedin_url'] ?? null;
-                        $instagram = $siteSettings['instagram_url'] ?? null;
-                    @endphp
-
-                    @if ($facebook)
-                        <a href="{{ $facebook }}" target="_blank" class="me-3"><i
-                                class="fab fa-facebook fa-2x"></i></a>
+                    @if ($factoryAddress)
+                        <div class="footer-contact-item">
+                            <span class="label">Nhà xưởng:</span>
+                            <span class="value">{{ $factoryAddress }}</span>
+                        </div>
                     @endif
-                    @if ($youtube)
-                        <a href="{{ $youtube }}" target="_blank" class="me-3"><i
-                                class="fab fa-youtube fa-2x"></i></a>
-                    @endif
-                    @if ($linkedin)
-                        <a href="{{ $linkedin }}" target="_blank" class="me-3"><i
-                                class="fab fa-linkedin fa-2x"></i></a>
-                    @endif
-                    @if ($instagram)
-                        <a href="{{ $instagram }}" target="_blank" class="me-3"><i
-                                class="fab fa-instagram fa-2x"></i></a>
-                    @endif
-                </div>
-            </div>
-
-            <!-- Quick Links -->
-            <div class="col-md-2 mb-4">
-                <h5>{{ __('common.quick_links') }}</h5>
-                <ul class="list-unstyled">
-                    <li class="mb-2"><a href="{{ route('home') }}"><i class="fas fa-angle-right"></i>
-                            {{ __('common.home') }}</a></li>
-                    <li class="mb-2"><a href="{{ route('about') }}"><i class="fas fa-angle-right"></i>
-                            {{ __('common.about') }}</a></li>
-                    <li class="mb-2"><a href="{{ route('products.index') }}"><i class="fas fa-angle-right"></i>
-                            {{ __('common.products') }}</a></li>
-                    <li class="mb-2"><a href="{{ route('projects.index') }}"><i class="fas fa-angle-right"></i>
-                            {{ __('common.projects') }}</a></li>
-                    <li class="mb-2"><a href="{{ route('contact') }}"><i class="fas fa-angle-right"></i>
-                            {{ __('common.contact') }}</a></li>
-                </ul>
-            </div>
-
-            <!-- Product Categories -->
-            <div class="col-md-3 mb-4">
-                <h5>{{ __('common.products') }}</h5>
-                <ul class="list-unstyled">
-                    @php
-                        $footerCategories = \App\Models\Category::root()->active()->take(5)->get();
-                    @endphp
-                    @foreach ($footerCategories as $category)
-                        <li class="mb-2">
-                            <a href="{{ route('products.index', ['category' => $category->slug]) }}">
-                                <i class="fas fa-angle-right"></i> {{ $category->name }}
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
-
-            <!-- Contact Info -->
-            <div class="col-md-3 mb-4">
-                <h5>{{ __('common.contact_info') }}</h5>
-                <ul class="list-unstyled">
-                    @php
-                        $phone = $siteSettings['contact_phone'] ?? null;
-                        $email = $siteSettings['contact_email'] ?? null;
-                        $address = $siteSettings['contact_address'] ?? null;
-                    @endphp
-
-                    @if ($address)
-                        <li class="mb-2">
-                            <i class="fas fa-map-marker-alt"></i> {{ $address }}
-                        </li>
-                    @endif
-                    @if ($phone)
-                        <li class="mb-2">
-                            <i class="fas fa-phone"></i> <a href="tel:{{ $phone }}">{{ $phone }}</a>
-                        </li>
+                    @if ($hotline)
+                        <div class="footer-contact-item">
+                            <span class="label">Điện thoại:</span>
+                            <a href="tel:{{ $hotline }}" class="value">{{ $hotline }}</a>
+                        </div>
                     @endif
                     @if ($email)
-                        <li class="mb-2">
-                            <i class="fas fa-envelope"></i> <a
-                                href="mailto:{{ $email }}">{{ $email }}</a>
-                        </li>
+                        <div class="footer-contact-item">
+                            <span class="label">E-mail:</span>
+                            <a href="mailto:{{ $email }}" class="value">{{ $email }}</a>
+                        </div>
                     @endif
-                </ul>
-            </div>
-        </div>
-
-        @php
-            $mapUrl =
-                $siteSettings['google_map_embed_url'] ??
-                'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3723.863592744892!2d105.78466897503201!3d21.037499780613943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ab4cd0c66f05%3A0x85b098f35422f299!2zVmnhu4d0IFnDqm4sIE5nxakgSGnhu4dwLCBUaGFuaCBUcsOsLCBIw6AgTuG7mWksIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1699520000000!5m2!1svi!2s';
-            $qrUrl = $siteSettings['contact_qr_image_url'] ?? null;
-        @endphp
-
-        @if ($mapUrl || $qrUrl)
-            <div class="row mt-4">
-                <div class="col-12">
-                    <div class="card shadow-lg border-0">
-                        <div
-                            class="card-header card-header-gradient text-white d-flex justify-content-between align-items-center">
-                            <h5 class="mb-0"><i class="fas fa-map-marked-alt"></i> {{ __('common.location_map') }}
-                            </h5>
-                            @if ($qrUrl)
-                                <span class="text-sm text-white-50">{{ __('common.scan_qr_to_connect') }}</span>
-                            @endif
-                        </div>
-                        <div class="card-body p-0">
-                            <div class="row g-0 align-items-stretch">
-                                @if ($qrUrl)
-                                    <div class="col-md-4 col-lg-3 d-flex border-end">
-                                        <div
-                                            class="bg-light w-100 h-100 p-4 d-flex flex-column justify-content-center align-items-center">
-                                            <div class="qr-code-wrapper p-3 bg-white rounded-4 shadow-sm mb-3">
-                                                <img src="{{ $qrUrl }}" alt="{{ __('common.contact_qr_code') }}"
-                                                    class="img-fluid" style="max-height: 200px;">
-                                            </div>
-                                            <p class="mt-2 mb-0 text-muted small text-center fw-semibold">
-                                                <i class="fas fa-qrcode text-primary"></i> {{ __('common.scan_qr_to_connect') }}
-                                            </p>
-                                        </div>
-                                    </div>
-                                @endif
-                                <div class="{{ $qrUrl ? 'col-md-8 col-lg-9' : 'col-12' }} d-flex">
-                                    <div class="w-100 h-100 map-container">
-                                        <iframe src="{{ $mapUrl }}" class="w-100 h-100 border-0"
-                                            style="min-height: 350px;" allowfullscreen="" loading="lazy"
-                                            referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-        @endif
-        
-        <!-- Certifications & Awards -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <div class="certifications-section text-center py-4">
-                    <h6 class="text-white-50 mb-3 text-uppercase"><i class="fas fa-certificate"></i> {{ __('common.certifications') }}</h6>
-                    <div class="d-flex justify-content-center align-items-center flex-wrap gap-4">
-                        <div class="certification-badge">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/ISO_9001_logo.svg/200px-ISO_9001_logo.svg.png" 
-                                 alt="ISO 9001" style="height: 60px; filter: brightness(0) invert(1) opacity(0.7);">
+
+            <div class="col-lg-4">
+                <div class="footer-qr-only h-100 d-flex align-items-center justify-content-center">
+                    @if ($qrUrl)
+                        <div class="footer-qr-box">
+                            <img src="{{ $qrUrl }}" alt="QR" class="img-fluid">
                         </div>
-                        <div class="certification-badge">
-                            <span class="badge bg-warning text-dark fs-6 py-2 px-3">
-                                <i class="fas fa-award"></i> {{ __('common.authorized_dealer') }}
-                            </span>
-                        </div>
-                        <div class="certification-badge">
-                            <span class="badge bg-light text-dark fs-6 py-2 px-3">
-                                <i class="fas fa-shield-alt"></i> {{ __('common.warranty_guaranteed') }}
-                            </span>
-                        </div>
-                        <div class="certification-badge">
-                            <span class="badge bg-primary fs-6 py-2 px-3">
-                                <i class="fas fa-handshake"></i> {{ __('common.trusted_partner') }}
-                            </span>
-                        </div>
-                    </div>
+                    @endif
                 </div>
             </div>
+
+            @if ($mapUrl)
+            <div class="col-lg-4">
+                <div class="footer-map-compact h-100">
+                    <iframe src="{{ $mapUrl }}" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+            @endif
         </div>
 
-        <hr class="my-4" style="border-color: rgba(255,255,255,0.1)">
-
-        <div class="row">
-            <div class="col-md-12 text-center">
-                <p class="mb-0">
-                    @php
-                        $defaultCopyright =
-                            '© ' .
-                            date('Y') .
-                            ' ' .
-                            ($siteSettings['site_name'] ?? 'VgenTech') .
-                            '. All rights reserved.';
-                        $copyright = $siteSettings['footer_copyright'] ?? $defaultCopyright;
-                    @endphp
-                    {{ $copyright }}
-                </p>
+        <div class="footer-bottom mt-4 pt-3">
+            <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+                @php
+                    $defaultCopyright =
+                        '© ' .
+                        date('Y') .
+                        ' ' .
+                        ($siteSettings['site_name'] ?? 'VgenTech') .
+                        '. All rights reserved.';
+                    $copyright = $siteSettings['footer_copyright'] ?? $defaultCopyright;
+                @endphp
+                <p class="mb-0 text-white-50">{{ $copyright }}</p>
+                <div class="footer-social">
+                    @if ($facebook)
+                        <a href="{{ $facebook }}" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    @endif
+                    @if ($youtube)
+                        <a href="{{ $youtube }}" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    @endif
+                    @if ($linkedin)
+                        <a href="{{ $linkedin }}" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    @endif
+                    @if ($instagram)
+                        <a href="{{ $instagram }}" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    @endif
+                </div>
             </div>
         </div>
     </div>

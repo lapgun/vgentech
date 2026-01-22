@@ -1,47 +1,85 @@
-<nav class="navbar navbar-expand-lg navbar-light sticky-top">
-    <div class="container-fluid">
-        @php
-            $siteName = $siteSettings['site_name'] ?? 'VgenTech';
-            $hasLogo = !empty($siteSettings['site_logo_url']);
-        @endphp
-        <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}" aria-label="{{ $siteName }}">
-            @if ($hasLogo)
-                <img src="{{ $siteSettings['site_logo_url'] }}" alt="{{ $siteName }}" height="60px" width="220px">
-            @else
-                <i class="fas fa-bolt me-2"></i>
-                <span class="fw-bold">{{ $siteName }}</span>
-            @endif
-        </a>
+<header class="site-header sticky-top">
+    <div class="header-top">
+        <div class="container d-flex align-items-center justify-content-between gap-3 flex-wrap">
+            @php
+                $siteName = $siteSettings['site_name'] ?? 'VgenTech';
+                $hasLogo = !empty($siteSettings['site_logo_url']);
+                $tagline = $siteSettings['site_tagline'] ?? __('common.power_solution_partner');
+                $hotline = $siteSettings['contact_phone'] ?? config('app.phone', '0123 456 789');
+                $qrUrl = $siteSettings['contact_qr_image_url'] ?? null;
+            @endphp
 
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+            <div class="d-flex align-items-center gap-3 header-brand">
+                <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}" aria-label="{{ $siteName }}">
+                    @if ($hasLogo)
+                        <img src="{{ $siteSettings['site_logo_url'] }}" alt="{{ $siteName }}" height="70" width="200">
+                    @else
+                        <span class="fw-bold">{{ $siteName }}</span>
+                    @endif
+                </a>
+                <div class="header-brand-text">
+                    <div class="fw-bold text-uppercase brand-title mb-1">{{ __('common.company_name_full') }}</div>
+                    <div class="text-muted text-uppercase brand-tagline">{{ __('common.company_name_english') }}</div>
+                </div>
+            </div>
 
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav mx-auto">
+            <div class="d-flex align-items-center gap-3 header-contact">
+                <div class="header-hotline d-flex align-items-center gap-2">
+                    <span class="hotline-icon d-inline-flex align-items-center justify-content-center">
+                        <i class="fas fa-phone-alt"></i>
+                    </span>
+                    <div class="hotline-text lh-sm">
+                        <div class="text-muted small mb-0">{{ __('common.hotline_support') ?? 'Hotline' }}</div>
+                        <div class="fw-bold text-primary hotline-number">{{ $hotline }}</div>
+                    </div>
+                </div>
+                @if ($qrUrl)
+                    <div class="header-qr text-center">
+                        <img src="{{ $qrUrl }}" alt="{{ $siteName }} QR" class="rounded shadow-sm">
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <nav class="navbar navbar-expand-lg header-nav">
+        <div class="container">
+            <a class="d-lg-none text-white" href="{{ route('home') }}" aria-label="{{ $siteName }}">
+                {{-- @if ($hasLogo)
+                    <img src="{{ $siteSettings['site_logo_url'] }}" alt="{{ $siteName }}" height="40" width="40">
+                @else --}}
+                    <span class="fw-bold">{{ $siteName }}</span>
+                {{-- @endif --}}
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}" href="{{ route('home') }}">
-                        <i class="fas fa-home"></i> {{ __('common.home') }}
+                        {{ __('common.home') }}
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('about') ? 'active' : '' }}" href="{{ route('about') }}">
-                        <i class="fas fa-info-circle"></i> {{ __('common.about') }}
+                        {{ __('common.about') }}
                     </a>
                 </li>
 
                 <li class="nav-item dropdown mega-menu-dropdown">
                     <a class="nav-link dropdown-toggle {{ request()->routeIs('products.*') ? 'active' : '' }}"
                         href="#" id="productsDropdown" role="button" data-bs-toggle="dropdown">
-                        <i class="fas fa-box"></i> {{ __('common.products') }}
+                        {{ __('common.products') }}
                     </a>
                     <div class="dropdown-menu mega-menu p-4">
                         <div class="row g-0">
                             <div class="col-12 mb-3 pb-3 border-bottom">
-                                <h6 class="mega-menu-title text-primary mb-0"><i class="fas fa-th-large"></i> {{ __('common.all_products') }}</h6>
+                                <h6 class="mega-menu-title text-primary mb-0">{{ __('common.all_products') }}</h6>
                                 <a class="text-warning small d-inline-block mt-2" href="{{ route('products.index') }}">
-                                    <i class="fas fa-arrow-right"></i> {{ __('common.view_all') }}
+                                    {{ __('common.view_all') }}
                                 </a>
                             </div>
                             @php
@@ -80,12 +118,12 @@
                             <div class="row g-2">
                                 <div class="col-md-6">
                                     <a href="{{ route('contact') }}" class="btn btn-sm btn-outline-primary w-100">
-                                        <i class="fas fa-headset"></i> {{ __('common.need_support') }}
+                                        {{ __('common.need_support') }}
                                     </a>
                                 </div>
                                 <div class="col-md-6">
                                     <a href="{{ route('products.index') }}" class="btn btn-sm btn-warning w-100">
-                                        <i class="fas fa-list"></i> {{ __('common.browse_catalog') }}
+                                        {{ __('common.browse_catalog') }}
                                     </a>
                                 </div>
                             </div>
@@ -96,100 +134,100 @@
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('projects.*') ? 'active' : '' }}"
                         href="{{ route('projects.index') }}">
-                        <i class="fas fa-project-diagram"></i> {{ __('common.projects') }}
+                        {{ __('common.projects') }} 
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('blog.*') ? 'active' : '' }}"
                         href="{{ route('blog.index') }}">
-                        <i class="fas fa-newspaper"></i> {{ __('common.blog') }}
+                        {{ __('common.blog') }}
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('recruitment.*') ? 'active' : '' }}"
                         href="{{ route('recruitment.index') }}">
-                        <i class="fas fa-users"></i> {{ __('common.recruitment') }}
+                        {{ __('common.recruitment') }}
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('contact') ? 'active' : '' }}"
                         href="{{ route('contact') }}">
-                        <i class="fas fa-envelope"></i> {{ __('common.contact') }}
+                        {{ __('common.contact') }}
                     </a>
                 </li>
-            </ul>
+                </ul>
 
-            <!-- Right Side: Language, Search, Login -->
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fas fa-globe"></i>
-                        @if (app()->getLocale() == 'vi')
-                            🇻🇳
-                        @elseif(app()->getLocale() == 'zh')
-                            🇨🇳
-                        @else
-                            🇬🇧
-                        @endif
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                <!-- Right Side: Language, Search, Login -->
+                <ul class="navbar-nav ms-auto header-right-nav">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            @if (app()->getLocale() == 'vi')
+                                🇻🇳
+                            @elseif(app()->getLocale() == 'zh')
+                                🇨🇳
+                            @else
+                                🇬🇧
+                            @endif
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="languageDropdown">
                         <li><a class="dropdown-item" href="{{ url('vi') }}">🇻🇳 Tiếng Việt</a></li>
                         <li><a class="dropdown-item" href="{{ url('en') }}">🇬🇧 English</a></li>
                         <li><a class="dropdown-item" href="{{ url('zh') }}">🇨🇳 中文</a></li>
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
 
-                <!-- Search Button -->
-                <li class="nav-item">
-                    <a class="nav-link search-toggle" href="#" data-bs-toggle="modal"
-                        data-bs-target="#searchModal">
-                        <i class="fas fa-search"></i>
-                    </a>
-                </li>
-
-                @guest
+                    <!-- Search Button -->
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('login') }}">
-                            <i class="fas fa-sign-in-alt"></i> {{ __('Log in') }}
+                        <a class="nav-link search-toggle" href="#" data-bs-toggle="modal"
+                            data-bs-target="#searchModal">
+                            <i class="fas fa-search"></i>
                         </a>
                     </li>
-                @else
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                            data-bs-toggle="dropdown">
-                            <i class="fas fa-user"></i> {{ Auth::user()->name }}
-                        </a>
-                        <ul class="dropdown-menu">
-                            @if (auth()->user()->isAdmin())
-                                <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                        <i class="fas fa-tachometer-alt"></i> Dashboard
-                                    </a></li>
+
+                    @guest
+                        {{-- <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">
+                                {{ __('Log in') }}
+                            </a>
+                        </li> --}}
+                    @else
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-bs-toggle="dropdown">
+                                {{ Auth::user()->name }}
+                            </a>
+                            <ul class="dropdown-menu">
+                                @if (auth()->user()->isAdmin())
+                                    <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+                                            Dashboard
+                                        </a></li>
+                                    <li>
+                                        <hr class="dropdown-divider">
+                                    </li>
+                                    <li><a class="dropdown-item" href="{{ route('admin.profile.edit') }}">
+                                            {{ __('Profile') }}
+                                        </a></li>
+                                @endif
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="{{ route('admin.profile.edit') }}">
-                                        <i class="fas fa-user-circle"></i> {{ __('Profile') }}
-                                    </a></li>
-                            @endif
-                            <li>
-                                <hr class="dropdown-divider">
-                            </li>
-                            <li>
-                                <form method="POST" action="{{ route('logout') }}">
-                                    @csrf
-                                    <button type="submit" class="dropdown-item">
-                                        <i class="fas fa-sign-out-alt"></i> {{ __('Log Out') }}
-                                    </button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                @endguest
-            </ul>
+                                <li>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button type="submit" class="dropdown-item">
+                                            {{ __('Log Out') }}
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    @endguest
+                </ul>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
+</header>

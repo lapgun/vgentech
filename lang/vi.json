@@ -315,5 +315,10 @@
     "common.certifications": "Chứng nhận & Giải thưởng",
     "common.authorized_dealer": "Đại lý ủy quyền",
     "common.warranty_guaranteed": "Bảo hành cam kết",
-    "common.trusted_partner": "Đối tác tin cậy"
+    "common.trusted_partner": "Đối tác tin cậy",
+    "common.company_name_full": "Công ty cổ phần giải pháp VgenTech",
+    "common.company_name_english": "VgenTech Solutions Joint Stock Company",
+    "common.safe_power_title": "Khuyến cáo sử dụng điện an toàn",
+    "common.safe_power_body": "Không vận hành máy phát trong không gian kín; tránh mưa ẩm; không cắm ngược điện vào ổ tường; bảo quản và cấp nhiên liệu an toàn; ưu tiên thiết bị chính hãng có nguồn gốc rõ ràng.",
+    "common.updated_latest": "Cập nhật mới nhất"
 }

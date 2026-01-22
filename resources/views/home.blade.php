@@ -47,8 +47,35 @@
 </div>
 @endif
 
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const buttons = document.querySelectorAll('.showcase-nav-btn');
+        const scrollByAmount = (track) => {
+            const card = track.querySelector('.showcase-card');
+            if (!card) return track.clientWidth;
+            const style = getComputedStyle(track);
+            const gap = parseFloat(style.columnGap || style.gap || 0);
+            return card.getBoundingClientRect().width + gap;
+        };
+
+        buttons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const targetSelector = btn.getAttribute('data-target');
+                const track = document.querySelector(targetSelector);
+                if (!track) return;
+
+                const amount = scrollByAmount(track);
+                const direction = btn.getAttribute('data-dir') === 'next' ? 1 : -1;
+                track.scrollBy({ left: direction * amount, behavior: 'smooth' });
+            });
+        });
+    });
+</script>
+@endpush
+
 <!-- Logo Partners Slider -->
-<section class="py-4 bg-light border-top border-bottom">
+<section class="py-4 border-top border-bottom bg-white">
     <div class="container">
         <div class="partners-slider">
             <div class="partners-track">
@@ -66,7 +93,7 @@
 </section>
 
 <!-- About Company Section -->
-<section class="py-5 bg-white">
+<section class="py-5">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0">
@@ -131,94 +158,65 @@
     </div>
 </section>
 
-<!-- Featured Products -->
-<section class="py-5 bg-white">
+<!-- Featured Products (Slider style) -->
+<section class="py-5 bg-white showcase-section">
     <div class="container">
-    <h2 class="section-title">{{ __('common.featured_products') }}</h2>
-        
-        <div class="row g-4">
-            @foreach($featuredProducts as $product)
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="card product-card h-100 border-0 shadow-sm">
-                        <div class="product-image-wrapper position-relative">
-                            <img src="{{ $product->featured_image_url ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=400&q=80' }}" 
-                                 class="card-img-top" alt="{{ $product->name }}" style="height: 220px; object-fit: cover;" loading="lazy">
-                            @if($product->is_featured)
-                                <span class="product-badge badge-featured"><i class="fas fa-star"></i> {{ __('common.best_seller') }}</span>
-                            @endif
-                            @if($product->is_new)
-                                <span class="product-badge badge-new"><i class="fas fa-sparkles"></i> {{ __('common.new') }}</span>
-                            @endif
-                            @if($product->brand)
-                                <span class="product-badge badge-brand">{{ $product->brand }}</span>
-                            @endif
-                        </div>
-                        <div class="card-body">
-                            <span class="badge bg-primary mb-2">{{ $product->category->name }}</span>
-                            <h5 class="card-title">{{ $product->name }}</h5>
-                            <p class="card-text text-muted small">{{ Str::limit($product->short_description ?? $product->description, 80) }}</p>
-                            <div class="product-price mt-3">
-                                @if($product->price && $product->price < 50000000)
-                                    <p class="text-danger fw-bold fs-5 mb-0">{{ number_format($product->price) }} VNĐ</p>
-                                @else
-                                    <p class="text-danger fw-bold mb-0"><i class="fas fa-phone-alt text-danger"></i> Giá: Liên hệ</p>
-                                @endif
-                            </div>
-                        </div>
-                        <div class="card-footer bg-transparent border-0">
-                            <a href="{{ route('products.show', $product->slug) }}" class="btn btn-primary btn-sm w-100 btn-product-detail">
-                                <i class="fas fa-info-circle"></i> {{ __('common.view_details') }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">
+            <div class="section-heading mb-0 flex-grow-1 text-center">
+                <h2 class="section-title mb-2">{{ __('common.featured_products') }}</h2>
+                <div class="section-underline"></div>
+            </div>
+            <div class="showcase-nav" aria-label="Products navigation">
+                <button class="showcase-nav-btn" type="button" data-dir="prev" data-target="#featured-products-track">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="showcase-nav-btn" type="button" data-dir="next" data-target="#featured-products-track">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
-        
-        <div class="text-center mt-4">
-            <a href="{{ route('products.index') }}" class="btn btn-outline-primary btn-lg">
-                {{ __('common.view_all') }} {{ __('common.products') }} <i class="fas fa-arrow-right"></i>
-            </a>
+
+        <div class="showcase-track" id="featured-products-track">
+            @foreach($featuredProducts as $product)
+                <a href="{{ route('products.show', $product->slug) }}" class="showcase-card">
+                    <div class="showcase-image">
+                        <img src="{{ $product->featured_image_url ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80' }}" alt="{{ $product->name }}" loading="lazy">
+                    </div>
+                    <div class="showcase-title text-uppercase">{{ $product->name }}</div>
+                </a>
+            @endforeach
         </div>
     </div>
 </section>
 
-<!-- Featured Projects -->
+<!-- Featured Projects (Slider style) -->
 @if($featuredProjects->count() > 0)
-<section class="py-5 bg-light">
+<section class="py-5 showcase-section">
     <div class="container">
-        <h2 class="section-title">{{ __('common.featured_projects') }}</h2>
-        
-        <div class="row g-4">
-            @foreach($featuredProjects as $project)
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100">
-                    <img src="{{ $project->featured_image_url ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=500&q=80' }}" 
-                             class="card-img-top" alt="{{ $project->title }}" style="height: 250px; object-fit: cover;" loading="lazy">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ $project->title }}</h5>
-                            <p class="card-text">
-                                <small class="text-muted">
-                                    <i class="fas fa-building"></i> {{ $project->client_name }}<br>
-                                    <i class="fas fa-map-marker-alt"></i> {{ $project->location }}
-                                </small>
-                            </p>
-                            <p class="card-text">{{ Str::limit($project->short_description ?? $project->description, 100) }}</p>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <a href="{{ route('projects.show', $project->slug) }}" class="btn btn-primary btn-sm w-100">
-                                <i class="fas fa-eye"></i> {{ __('common.view_project') }}
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+        <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">
+            <div class="section-heading mb-0 flex-grow-1 text-center">
+                <h2 class="section-title mb-2">{{ __('common.featured_projects') }}</h2>
+                <div class="section-underline"></div>
+            </div>
+            <div class="showcase-nav" aria-label="Projects navigation">
+                <button class="showcase-nav-btn" type="button" data-dir="prev" data-target="#featured-projects-track">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="showcase-nav-btn" type="button" data-dir="next" data-target="#featured-projects-track">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
         </div>
-        
-        <div class="text-center mt-4">
-            <a href="{{ route('projects.index') }}" class="btn btn-outline-primary btn-lg">
-                {{ __('common.view_all') }} {{ __('common.projects') }} <i class="fas fa-arrow-right"></i>
-            </a>
+
+        <div class="showcase-track" id="featured-projects-track">
+            @foreach($featuredProjects as $project)
+                <a href="{{ route('projects.show', $project->slug) }}" class="showcase-card">
+                    <div class="showcase-image">
+                        <img src="{{ $project->featured_image_url ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80' }}" alt="{{ $project->title }}" loading="lazy">
+                    </div>
+                    <div class="showcase-title text-uppercase">{{ $project->title }}</div>
+                </a>
+            @endforeach
         </div>
     </div>
 </section>
@@ -226,45 +224,42 @@
 
 <!-- Latest News -->
 @if($latestPosts->count() > 0)
-<section class="py-5">
+<section class="py-5 bg-white news-section">
     <div class="container">
-        <h2 class="section-title">{{ __('common.latest_news') }}</h2>
-        
-        <div class="row g-4">
-            @foreach($latestPosts as $post)
-                <div class="col-lg-4 col-md-6">
-                    <div class="card h-100">
-                        @if($post->featured_image_url)
-                            <img src="{{ $post->featured_image_url }}" class="card-img-top" alt="{{ $post->title }}" 
-                                 style="height: 200px; object-fit: cover;" loading="lazy">
-                        @endif
-                        <div class="card-body">
-                            <div class="mb-2">
-                                @foreach($post->tags as $tag)
-                                    <span class="badge bg-secondary">{{ $tag->name }}</span>
-                                @endforeach
-                            </div>
-                            <h5 class="card-title">{{ $post->title }}</h5>
-                            <p class="card-text">{{ $post->excerpt }}</p>
-                            <p class="text-muted small">
-                                <i class="fas fa-calendar"></i> {{ $post->published_at->format('d/m/Y') }}
-                                <i class="fas fa-eye ms-2"></i> {{ $post->view_count }} {{ __('common.view_count') }}
-                            </p>
-                        </div>
-                        <div class="card-footer bg-white">
-                            <a href="{{ route('blog.show', $post->slug) }}" class="btn btn-primary btn-sm w-100">
-                                {{ __('common.read_more') }} <i class="fas fa-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+        <div class="section-heading">
+            <h2 class="section-title mb-2">{{ __('common.latest_news') }}</h2>
+            <div class="section-underline"></div>
         </div>
-        
-        <div class="text-center mt-4">
-            <a href="{{ route('blog.index') }}" class="btn btn-outline-primary btn-lg">
-                {{ __('common.view_all_news') }} <i class="fas fa-arrow-right"></i>
-            </a>
+
+        <div class="row g-4 align-items-stretch">
+            <div class="col-lg-6">
+                <a class="news-featured card h-100">
+                    <img src="{{ asset('images/khuen-cao-evn.jpg') }}" class="card-img-top" loading="lazy" style="width: 100%; height: 520px; object-fit: cover;">
+                    <div class="card-body align-content-end">
+                        <h4 class="card-title">{{ __('common.safe_power_title') }}</h4>
+                        <p class="card-text text-muted">{{ __('common.safe_power_body') }}</p>
+                        <p class="text-muted small mb-0"><i class="fas fa-calendar"></i> {{ __('common.updated_latest') }}</p>
+                    </div>
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <div class="news-list">
+                    @foreach($latestPosts as $post)
+                        <a href="{{ route('blog.show', $post->slug) }}" class="news-list-item d-flex">
+                            @if($post->featured_image_url)
+                                <div class="news-thumb">
+                                    <img src="{{ $post->featured_image_url }}" alt="{{ $post->title }}" loading="lazy">
+                                </div>
+                            @endif
+                            <div class="news-info flex-grow-1">
+                                <h6 class="mb-1">{{ $post->title }}</h6>
+                                <p class="text-muted small mb-1">{{ Str::limit($post->excerpt, 80) }}</p>
+                                <span class="text-muted tiny"><i class="fas fa-calendar"></i> {{ $post->published_at->format('d/m/Y') }}</span>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -272,7 +267,7 @@
 
 <!-- Testimonials -->
 @if($testimonials->count() > 0)
-<section class="py-5 bg-light">
+<section class="py-5">
     <div class="container">
         <h2 class="section-title">{{ __('common.our_customers') }}</h2>
         
@@ -318,7 +313,7 @@
         <h2 class="mb-3 animate-fadeInUp">{{ __('common.need_consultation') }}?</h2>
         <p class="lead mb-4 animate-fadeIn">{{ __('common.consultation_text') }}</p>
         <div class="animate-fadeInUp">
-            <a href="{{ route('contact') }}" class="btn btn-light btn-lg me-2">
+            <a href="{{ route('contact') }}" class="btn btn-light btn-lg m-2">
                 <i class="fas fa-phone"></i> {{ __('common.get_in_touch') }}
             </a>
             <a href="{{ route('products.index') }}" class="btn btn-outline-light btn-lg">

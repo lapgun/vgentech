@@ -315,5 +315,10 @@
     "common.certifications": "认证与奖项",
     "common.authorized_dealer": "授权经销商",
     "common.warranty_guaranteed": "保修保证",
-    "common.trusted_partner": "可信赖的合作伙伴"
+    "common.trusted_partner": "信赖伙伴",
+    "common.company_name_full": "VgenTech 解决方案股份公司",
+    "common.company_name_english": "VgenTech Solutions Joint Stock Company",
+    "common.safe_power_title": "安全用电与发电机提示",
+    "common.safe_power_body": "切勿在密闭空间运行发电机；远离雨水潮湿；不要反向插入插座回送电力；安全存放和加注燃料；优先选择来源清晰的正规设备。",
+    "common.updated_latest": "最新更新"
 }
