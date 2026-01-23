@@ -174,9 +174,9 @@
                             @endif
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="languageDropdown">
-                        <li><a class="dropdown-item" href="{{ url('vi') }}">🇻🇳 Tiếng Việt</a></li>
-                        <li><a class="dropdown-item" href="{{ url('en') }}">🇬🇧 English</a></li>
-                        <li><a class="dropdown-item" href="{{ url('zh') }}">🇨🇳 中文</a></li>
+                        <li><a class="dropdown-item" href="{{ url('vi') }}">🇻🇳 {{ __('common.language_vi') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ url('en') }}">🇬🇧 {{ __('common.language_en') }}</a></li>
+                        <li><a class="dropdown-item" href="{{ url('zh') }}">🇨🇳 {{ __('common.language_zh') }}</a></li>
                         </ul>
                     </li>
 
@@ -203,7 +203,7 @@
                             <ul class="dropdown-menu">
                                 @if (auth()->user()->isAdmin())
                                     <li><a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                            Dashboard
+                                            {{ __('common.dashboard') }}
                                         </a></li>
                                     <li>
                                         <hr class="dropdown-divider">

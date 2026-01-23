@@ -28,21 +28,21 @@
             <div class="footer-chip">
                 <div class="footer-chip-icon bg-warning text-primary"><i class="fas fa-headset"></i></div>
                 <div class="footer-chip-body">
-                    <div class="footer-chip-title">Kinh doanh (24/7)</div>
+                    <div class="footer-chip-title">{{ __('common.business_support_247') }}</div>
                     <a href="tel:{{ $businessPhone }}" class="footer-chip-value">{{ $businessPhone }}</a>
                 </div>
             </div>
             <div class="footer-chip">
                 <div class="footer-chip-icon bg-info text-white"><i class="fas fa-tools"></i></div>
                 <div class="footer-chip-body">
-                    <div class="footer-chip-title">Kỹ thuật (24/7)</div>
+                    <div class="footer-chip-title">{{ __('common.technical_support_247') }}</div>
                     <a href="tel:{{ $technicalPhone }}" class="footer-chip-value">{{ $technicalPhone }}</a>
                 </div>
             </div>
             <div class="footer-chip">
                 <div class="footer-chip-icon bg-primary text-white"><i class="fas fa-building"></i></div>
                 <div class="footer-chip-body">
-                    <div class="footer-chip-title">Office ({{ $officeHours }})</div>
+                    <div class="footer-chip-title">{{ __('common.office_hours_label', ['hours' => $officeHours]) }}</div>
                     <a href="tel:{{ $officePhone }}" class="footer-chip-value">{{ $officePhone }}</a>
                 </div>
             </div>
@@ -50,27 +50,27 @@
 
         <div class="row g-4 align-items-start footer-main">
             <div class="col-lg-4">
-                <div class="font-semibold text-xl my-3">Công ty cổ phần giải pháp VgenTech</div>
+                <div class="font-semibold text-xl my-3">{{ __('common.company_name_full') }}</div>
                 <div class="footer-contact-grid single-column">
                     <div class="footer-contact-item">
-                        <span class="label">VPGD:</span>
+                        <span class="label">{{ __('common.office_abbr') }}:</span>
                         <span class="value">{{ $vpAddress }}</span>
                     </div>
                     @if ($factoryAddress)
                         <div class="footer-contact-item">
-                            <span class="label">Nhà xưởng:</span>
+                            <span class="label">{{ __('common.factory') }}:</span>
                             <span class="value">{{ $factoryAddress }}</span>
                         </div>
                     @endif
                     @if ($hotline)
                         <div class="footer-contact-item">
-                            <span class="label">Điện thoại:</span>
+                            <span class="label">{{ __('common.phone') }}:</span>
                             <a href="tel:{{ $hotline }}" class="value">{{ $hotline }}</a>
                         </div>
                     @endif
                     @if ($email)
                         <div class="footer-contact-item">
-                            <span class="label">E-mail:</span>
+                            <span class="label">{{ __('common.email') }}:</span>
                             <a href="mailto:{{ $email }}" class="value">{{ $email }}</a>
                         </div>
                     @endif

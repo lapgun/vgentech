@@ -178,12 +178,27 @@
 
         <div class="showcase-track" id="featured-products-track">
             @foreach($featuredProducts as $product)
-                <a href="{{ route('products.show', $product->slug) }}" class="showcase-card">
+                <div class="showcase-card">
                     <div class="showcase-image">
                         <img src="{{ $product->featured_image_url ?? 'https://images.unsplash.com/photo-1621905251189-08b45d6a269e?w=600&q=80' }}" alt="{{ $product->name }}" loading="lazy">
+                        <div class="showcase-overlay">
+                            <a href="{{ route('products.show', $product->slug) }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye me-1"></i>{{ __('common.view_details') }}
+                            </a>
+                            <a href="{{ route('products.show', $product->slug) }}#specs" class="btn btn-outline-light btn-sm">
+                                <i class="fas fa-info-circle me-1"></i>{{ __('common.specifications') }}
+                            </a>
+                        </div>
                     </div>
-                    <div class="showcase-title text-uppercase">{{ $product->name }}</div>
-                </a>
+                    <div class="showcase-title text-uppercase">
+                        {{ $product->name }}
+                    </div>
+                    @if($product->category)
+                    <div class="showcase-micro-info">
+                        {{ $product->category->name }}<span class="separator">|</span>{{ __('common.diesel_fuel') }}<span class="separator">|</span>{{ __('common.three_phase') }}
+                    </div>
+                    @endif
+                </div>
             @endforeach
         </div>
     </div>
@@ -191,7 +206,7 @@
 
 <!-- Featured Projects (Slider style) -->
 @if($featuredProjects->count() > 0)
-<section class="py-5 showcase-section">
+<section class="py-5 showcase-section projects-section">
     <div class="container">
         <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-3">
             <div class="section-heading mb-0 flex-grow-1 text-center">
@@ -210,12 +225,27 @@
 
         <div class="showcase-track" id="featured-projects-track">
             @foreach($featuredProjects as $project)
-                <a href="{{ route('projects.show', $project->slug) }}" class="showcase-card">
+                <div class="showcase-card">
                     <div class="showcase-image">
+                        @if($project->category)
+                        <div class="showcase-badge">{{ $project->category->name }}</div>
+                        @endif
                         <img src="{{ $project->featured_image_url ?? 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=800&q=80' }}" alt="{{ $project->title }}" loading="lazy">
+                        <div class="showcase-overlay">
+                            <a href="{{ route('projects.show', $project->slug) }}" class="btn btn-primary btn-sm">
+                                <i class="fas fa-eye me-1"></i>{{ __('common.view_project') }}
+                            </a>
+                        </div>
                     </div>
-                    <div class="showcase-title text-uppercase">{{ $project->title }}</div>
-                </a>
+                    <div class="showcase-title text-uppercase">
+                        {{ $project->title }}
+                    </div>
+                    @if($project->description)
+                    <div class="showcase-micro-info">
+                        {{ Str::limit(strip_tags($project->description), 60) }}
+                    </div>
+                    @endif
+                </div>
             @endforeach
         </div>
     </div>

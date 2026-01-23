@@ -58,7 +58,7 @@
 
                         @if($product->specifications)
                             <hr>
-                            <h4><i class="fas fa-list-check"></i> {{ __('common.technical_specs') }}</h4>
+                            <h4 id="specs"><i class="fas fa-list-check"></i> {{ __('common.technical_specs') }}</h4>
                             <div class="table-responsive">
                                 <table class="table table-bordered">
                                     @foreach($product->specifications as $key => $value)
